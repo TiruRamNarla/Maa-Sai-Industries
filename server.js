@@ -32,6 +32,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Serve all static files (HTML, CSS, JS, Images, and PDFs)
 app.use(express.static(__dirname));
 
 // MongoDB Connection
@@ -146,6 +148,15 @@ app.post('/api/login', async (req, res) => {
   if ((username || '').trim() === 'gopi_achanti' && (password || '').trim() === 'admin123') {
     res.cookie('adminSession', 'authenticated_gopi_achanti', { httpOnly: true, maxAge: 86400000 });
     return res.json({ success: true, user: { username: 'gopi_achanti' } });
+  }
+  return res.status(401).json({ success: false, message: "Invalid Credentials." });
+});
+
+app.post('/api/admin/login', async (req, res) => {
+  const { username, password } = req.body;
+  if ((username || '').trim() === 'gopi_achanti' && (password || '').trim() === 'admin123') {
+    res.cookie('adminSession', 'authenticated_gopi_achanti', { httpOnly: true, maxAge: 86400000 });
+    return res.json({ success: true, redirect: '/admin-dashboard.html', user: { username: 'gopi_achanti' } });
   }
   return res.status(401).json({ success: false, message: "Invalid Credentials." });
 });
