@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | MAA SAI METAL INDUSTRIES</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: #0b192c; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    
+    .login-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border-top: 6px solid #f5ab1d;
+      text-align: center;
+    }
+
+    .brand-logo-img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    h2 { color: #0d1b38; font-size: 22px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+    p.subtitle { color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+
+    .error-box {
+      display: none;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .form-group { text-align: left; margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 800; color: #1e293b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.2s;
+    }
+    .form-group input:focus { border-color: #f5ab1d; background: #ffffff; box-shadow: 0 0 0 3px rgba(245, 171, 29, 0.2); }
+
+    .btn-login {
+      width: 100%;
+      background: #f5ab1d;
+      color: #0d1b38;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-login:hover { background: #e09b12; }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <img src="/logo.jpeg" alt="MAA SAI Logo" class="brand-logo-img" onerror="this.src='/logo.jpg'">
+    <h2>MAA SAI METAL</h2>
+    <p class="subtitle">Admin Management Portal</p>
+
+    <div id="errorMsg" class="error-box"></div>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="usernameInput" placeholder="Enter Admin ID" required value="gopi_achanti">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="Enter Password" required value="admin123">
+      </div>
+
+      <button type="submit" class="btn-login">Login to Dashboard &rarr;</button>
+    </form>
+  </div>
+
+  <script>
+    async function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('usernameInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+      const errorDiv = document.getElementById('errorMsg');
+
+      errorDiv.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('adminUser', JSON.stringify({ username: data.user.username }));
+          window.location.href = '/admin-dashboard.html';
+        } else {
+          errorDiv.textContent = data.message || 'Invalid credentials.';
+          errorDiv.style.display = 'block';
+        }
+      } catch (err) {
+        errorDiv.textContent = 'Server connection error. Ensure backend is running.';
+        errorDiv.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
