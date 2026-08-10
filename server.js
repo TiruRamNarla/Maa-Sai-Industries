@@ -13,14 +13,14 @@ try {
   console.log("Using default network DNS settings.");
 }
 
-// Models
-const Admin = require('./models/Admin');
-const Lead = require('./models/Lead');
-const Order = require('./models/Order');
-const Inventory = require('./models/Inventory');
-const Quotation = require('./models/Quotation');
-const Customer = require('./models/Customer');
-const Product = require('./models/Product');
+// Models loaded from root directory
+const Admin = require('./Admin');
+const Lead = require('./Lead');
+const Order = require('./Order');
+const Inventory = require('./Inventory');
+const Quotation = require('./Quotation');
+const Customer = require('./Customer');
+const Product = require('./Product');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
