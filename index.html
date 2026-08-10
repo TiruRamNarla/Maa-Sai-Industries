@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAA SAI METAL INDUSTRIES | Transmission Line Towers & Hot-Dip Galvanizing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; }
+        :root {
+            --primary-navy: #0d1b38;
+            --secondary-navy: #132247;
+            --accent-gold: #f5ab1d;
+            --accent-gold-hover: #e09b19;
+            --whatsapp-green: #25d366;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        body { background-color: #ffffff; color: var(--text-dark); line-height: 1.6; }
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- HEADER & NAVIGATION --- */
+        header { background: #ffffff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-bottom: 3px solid var(--accent-gold); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; max-width: 1200px; margin: 0 auto; }
+        .brand-logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 52px; width: auto; object-fit: contain; }
+        .brand-text h1 { font-size: 18px; font-weight: 800; color: var(--primary-navy); line-height: 1.1; }
+        .brand-text p { font-size: 10px; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.5px; }
+
+        nav ul { display: flex; list-style: none; gap: 18px; align-items: center; }
+        nav ul li a { font-size: 12.5px; font-weight: 700; color: var(--primary-navy); text-transform: uppercase; transition: color 0.2s; }
+        nav ul li a:hover { color: var(--accent-gold); }
+        .btn-portal-nav { background: var(--primary-navy); color: var(--accent-gold) !important; padding: 8px 14px; border-radius: 6px; font-size: 12px; }
+
+        /* --- HERO SECTION --- */
+        .hero { background: linear-gradient(135deg, #0d1b38 0%, #1e293b 100%); color: #ffffff; padding: 60px 0 40px; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        .hero-badge { background: rgba(245, 171, 29, 0.2); color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+        .hero h2 { font-size: 34px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .hero p { color: #cbd5e1; font-size: 14.5px; margin-bottom: 25px; }
+
+        .hero-action-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 25px; }
+        .btn-quote { background: var(--accent-gold); color: var(--primary-navy); padding: 12px 22px; border-radius: 6px; font-weight: 800; font-size: 13.5px; }
+        .btn-pdf { background: transparent; color: #ffffff; border: 2px solid var(--accent-gold); padding: 10px 18px; border-radius: 6px; font-weight: 700; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; }
+
+        /* --- ANIMATED COUNTERS BAR --- */
+        .counter-bar { background: var(--secondary-navy); padding: 25px 0; border-bottom: 2px solid var(--accent-gold); }
+        .counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; color: white; }
+        .counter-item h3 { font-size: 32px; color: var(--accent-gold); font-weight: 800; }
+        .counter-item p { font-size: 12px; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+
+        /* --- SECTION HEADINGS --- */
+        .section-padding { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 26px; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px; text-transform: uppercase; }
+        .section-subtitle { text-align: center; color: var(--text-muted); font-size: 13.5px; margin-bottom: 35px; }
+
+        /* --- WHY CHOOSE MAA SAI GRID --- */
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .why-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; gap: 16px; align-items: flex-start; transition: transform 0.2s; }
+        .why-card:hover { transform: translateY(-4px); border-color: var(--accent-gold); }
+        .why-icon { width: 50px; height: 50px; background: rgba(245,171,29,0.15); color: var(--accent-gold-hover); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+        .why-content h4 { color: var(--primary-navy); font-size: 16px; margin-bottom: 6px; }
+        .why-content p { color: var(--text-muted); font-size: 13px; }
+
+        /* --- PRODUCTS GRID --- */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .product-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .product-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .product-content { padding: 20px; }
+        .product-card h3 { color: var(--primary-navy); font-size: 16px; margin-bottom: 8px; }
+        .product-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
+        .product-actions { display: flex; gap: 10px; border-top: 1px solid #f1f5f9; padding-top: 12px; }
+        .btn-prod-quote { background: var(--primary-navy); color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+
+        /* --- PROJECTS SHOWCASE --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .project-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; }
+        .project-badge { background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+        .project-card h4 { color: var(--primary-navy); font-size: 15px; margin-bottom: 6px; }
+        .project-card p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px; }
+
+        /* --- CERTIFICATES DOWNLOAD CENTER --- */
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .cert-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; text-align: center; }
+        .cert-card i { font-size: 36px; color: var(--primary-navy); margin-bottom: 12px; }
+        .cert-card h4 { font-size: 14px; color: var(--primary-navy); margin-bottom: 12px; }
+        .btn-download-cert { display: inline-block; background: var(--accent-gold); color: var(--primary-navy); padding: 8px 16px; border-radius: 6px; font-weight: 800; font-size: 12px; }
+
+        /* --- MAPS --- */
+        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .map-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+        .map-card iframe { width: 100%; height: 260px; border: none; }
+        .map-info { padding: 18px; }
+        .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-navy); color: var(--accent-gold); padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 12.5px; margin-top: 12px; }
+
+        /* --- CLIENTS --- */
+        .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+        .client-badge { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px; text-align: center; font-weight: 700; font-size: 12px; color: var(--primary-navy); }
+
+        /* --- CONTACT & FORM --- */
+        .contact-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; background: var(--primary-navy); color: #ffffff; padding: 40px; border-radius: 12px; }
+        .info-box h4 { font-size: 12px; color: #94a3b8; text-transform: uppercase; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: #cbd5e1; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; background: #1e293b; border: 1px solid #334155; color: #ffffff; border-radius: 6px; font-size: 13px; }
+        .btn-submit-main { width: 100%; padding: 12px; background: var(--accent-gold); color: var(--primary-navy); border: none; font-weight: 800; font-size: 14px; border-radius: 6px; cursor: pointer; }
+
+        /* --- FLOATING ACTION BUTTONS --- */
+        .floating-actions { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+        .float-btn { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform 0.2s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .float-wa { background: var(--whatsapp-green); }
+        .float-call { background: var(--accent-gold); color: var(--primary-navy); }
+
+        /* --- EXPANDED FOOTER --- */
+        footer { background: #081023; color: #94a3b8; padding: 50px 0 25px; font-size: 13px; border-top: 1px solid #1e293b; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 40px; text-align: left; }
+        .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--accent-gold); padding-bottom: 6px; display: inline-block; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; text-align: center; font-size: 12px; }
+
+        @media (max-width: 900px) {
+            .hero-grid, .maps-grid, .contact-container, .counter-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <div class="brand-logo">
+                <img src="/logo.jpeg" alt="MAA SAI METAL Logo" class="logo-img" onerror="this.src='/logo.jpg'">
+                <div class="brand-text">
+                    <h1>MAA SAI METAL INDUSTRIES</h1>
+                    <p>ENGINEERING STRENGTH. TRUSTED QUALITY.</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#why-us">Why Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certs">Downloads</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/track" class="btn-portal-nav"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+                    <li><a href="/login.html" class="btn-portal-nav"><i class="fa-solid fa-lock"></i> Admin Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="about">
+        <div class="container hero-grid">
+            <div>
+                <span class="hero-badge">PROMOTER: MR. GOPI ACHANTI</span>
+                <h2>Transmission Line Towers & Hot-Dip Galvanizing</h2>
+                <p>Manufacturing lattice transmission towers up to 220kV, sub-station gantries, cable trays, and heavy chemical plant steel structures with in-house galvanizing facilities.</p>
+
+                <div class="hero-action-btns">
+                    <a href="#contact" class="btn-quote">Get Instant Quote ➔</a>
+                    <a href="#certs" class="btn-pdf"><i class="fa-solid fa-file-pdf"></i> Download Profile & Certs</a>
+                </div>
+            </div>
+
+            <div style="background: #ffffff; color: var(--text-dark); padding: 24px; border-radius: 10px; border-top: 5px solid var(--accent-gold);">
+                <h3 style="color: var(--primary-navy); font-size: 17px; margin-bottom: 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px;">Enterprise Credentials</h3>
+                <ul style="list-style: none; font-size: 13px; line-height: 2;">
+                    <li><strong>Proprietary Firm:</strong> Est. 2023</li>
+                    <li><strong>UDYAM Reg:</strong> UDYAM-TS-25-0000357</li>
+                    <li><strong>GSTIN:</strong> 36AOGPA8741L1ZQ</li>
+                    <li><strong>Banking Partner:</strong> State Bank of India</li>
+                    <li><strong>Workforce:</strong> 40+ Skilled Engineers & Staff</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANIMATED COUNTERS BAR -->
+    <div class="counter-bar">
+        <div class="container counter-grid">
+            <div class="counter-item"><h3>40+</h3><p>Industrial Clients</p></div>
+            <div class="counter-item"><h3>220 kV</h3><p>Tower Capacity</p></div>
+            <div class="counter-item"><h3>40 MT</h3><p>Daily Output</p></div>
+            <div class="counter-item"><h3>7+ Yrs</h3><p>Industry Experience</p></div>
+        </div>
+    </div>
+
+    <!-- WHY CHOOSE MAA SAI -->
+    <section class="section-padding" id="why-us" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Why Choose Maa Sai Metal</h2>
+            <p class="section-subtitle">Integrated steel manufacturing, precision machining, and hot-dip galvanizing under one roof.</p>
+
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-industry"></i></div>
+                    <div class="why-content">
+                        <h4>40 MT/Day Capacity</h4>
+                        <p>High-volume production lines with automated shearing, punching, and drilling setups.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="why-content">
+                        <h4>In-House Galvanizing</h4>
+                        <p>10M zinc melting bath ensuring IS 2629 & IS 4759 standard hot-dip galvanizing protection.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="why-content">
+                        <h4>220 kV Expertise</h4>
+                        <p>Fabrication of heavy lattice transmission towers and sub-station gantries for state power boards.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-user-gear"></i></div>
+                    <div class="why-content">
+                        <h4>40+ Skilled Engineers</h4>
+                        <p>Expert quality control inspectors ensuring strict dimensional accuracy and zinc coating thickness.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div class="why-content">
+                        <h4>On-Time Delivery</h4>
+                        <p>Dedicated logistics fleet featuring Bharat Benz heavy trailers and hydra cranes.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="why-content">
+                        <h4>Quality Assurance</h4>
+                        <p>Full material test certificates (MTC) provided with chemical & mechanical analysis for every batch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="section-padding" id="products">
+        <div class="container">
+            <h2 class="section-title">Product Portfolio & Capabilities</h2>
+            <p class="section-subtitle">Heavy steel structures fabricated at Unit-1 (Kazipally) and galvanized at Unit-2 (Gaddapotharam).</p>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="/tower.jpeg" alt="Transmission Line Towers" class="product-img" onerror="this.src='/tower4.jpeg'">
+                    <div class="product-content">
+                        <h3>1. Transmission Line Towers</h3>
+                        <p>Lattice steel towers fabricated up to 220kV capacity for power transmission lines and EPC projects.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="/tower2.jpeg" alt="Sub-Station Structures" class="product-img" onerror="this.src='/tower5.jpeg'">
+                    <div class="product-content">
+                        <h3>2. Sub-Station Structures</h3>
+                        <p>Heavy equipment gantries, 'M' type lattice tower parts, and switchyard structures.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="/tower3.jpeg" alt="Solar & PEB Structures" class="product-img" onerror="this.src='/tower6.jpeg'">
+                    <div class="product-content">
+                        <h3>3. Solar & PEB Frameworks</h3>
+                        <p>Pre-Engineered Building steel frameworks and hot-dip galvanized solar module mounting structures.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="/tower4.jpeg" alt="Chemical Plant Steel Structures" class="product-img">
+                    <div class="product-content">
+                        <h3>4. Chemical & Bulk Drug Steel</h3>
+                        <p>Heavy plant structures, pipe racks, gratings, and industrial safety handrailings for pharma units.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="/tower5.jpeg" alt="GI Earthing Flat & Patti" class="product-img">
+                    <div class="product-content">
+                        <h3>5. GI Earthing Flat & Patti</h3>
+                        <p>Hot-dip galvanized grounding strips, GI earthing wires, and 11KV DP/FP distribution structures.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="/tower6.jpeg" alt="Cable Trays & Fasteners" class="product-img">
+                    <div class="product-content">
+                        <h3>6. Cable Trays & Safety Barriers</h3>
+                        <p>Perforated and ladder-type cable trays, highway crash barriers, and foundation anchor bolts.</p>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SHOWCASE -->
+    <section class="section-padding" id="projects" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Completed Projects Showcase</h2>
+            <p class="section-subtitle">Track record of supplying fabricated & galvanized steel to major industrial sector leaders.</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <span class="project-badge">Pharma Industrial Steel</span>
+                    <h4>Hetero Labs Infrastructure</h4>
+                    <p><strong>Client:</strong> Hetero Labs Limited</p>
+                    <p><strong>Location:</strong> Kazipally Industrial Area</p>
+                    <p><strong>Scope:</strong> Chemical Plant Steel Framework & Gratings</p>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-badge">Pharma Plant Structures</span>
+                    <h4>Divis Labs Expansion</h4>
+                    <p><strong>Client:</strong> Divis Laboratories</p>
+                    <p><strong>Location:</strong> Telangana Industrial Corridor</p>
+                    <p><strong>Scope:</strong> GI Earthing Flats & Heavy Plant Gratings</p>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-badge">220kV Substation</span>
+                    <h4>Power Substation Gantries</h4>
+                    <p><strong>Client:</strong> Pennar Industries Ltd.</p>
+                    <p><strong>Location:</strong> Telangana State Grid</p>
+                    <p><strong>Scope:</strong> 220kV Equipment Gantries & Structures</p>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-badge">Telecom Infrastructure</span>
+                    <h4>Lattice Cellular Towers</h4>
+                    <p><strong>Client:</strong> ICOMM Tele Limited</p>
+                    <p><strong>Location:</strong> South India Region</p>
+                    <p><strong>Scope:</strong> Galvanized Communication Lattice Parts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES & DOWNLOAD CENTER -->
+    <section class="section-padding" id="certs">
+        <div class="container">
+            <h2 class="section-title">Document & Download Center</h2>
+            <p class="section-subtitle">Official statutory credentials, tax registrations, and corporate catalog.</p>
+
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <h4>Company Profile Catalog</h4>
+                    <a href="profile.pdf" download class="btn-download-cert">Download PDF &rarr;</a>
+                </div>
+
+                <div class="cert-card">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <h4>GSTIN Registration</h4>
+                    <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">36AOGPA8741L1ZQ</p>
+                    <a href="#contact" class="btn-download-cert">Request Document &rarr;</a>
+                </div>
+
+                <div class="cert-card">
+                    <i class="fa-solid fa-id-card"></i>
+                    <h4>UDYAM Registration</h4>
+                    <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">UDYAM-TS-25-0000357</p>
+                    <a href="#contact" class="btn-download-cert">Request Document &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP LOCATIONS (UPDATED WITH DIRECT SEARCH QUERY PIN DROPS & NAVIGATION) -->
+    <section class="section-padding" id="maps" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Plant Locations & Navigation</h2>
+            <p class="section-subtitle">Manufacturing & galvanizing plants located in Jinnaram Mandal, Sangareddy District.</p>
+
+            <div class="maps-grid">
+                <!-- Unit-1 Map Card -->
+                <div class="map-card">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.626248985167!2d78.3498!3d17.5721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8d2e85a53e9d%3A0x8e8334812a8731e8!2sMaa%20Sai%20Metal%20Industries%20IDA%20Kazipally!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                    <div class="map-info">
+                        <h4>Unit-1: Fabrication Plant & Office</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Survey No: 180/7, IDA Kazipally Village, Jinnaram Mandal, Sangareddy - 502319.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Maa+Sai+Metal+Industries+Kazipally+Sangareddy" target="_blank" class="btn-nav-map">
+                            <i class="fa-solid fa-location-arrow"></i> Navigate to Unit 1
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Unit-2 Map Card -->
+                <div class="map-card">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.100000000000!2d78.3610!3d17.5950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8d0000000000%3A0x0000000000000000!2sGaddapotharam%20Industrial%20Area!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                    <div class="map-info">
+                        <h4>Unit-2: Hot-Dip Galvanizing Plant</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Survey No: 25/B1 & 26/B1, Gaddapotharam Village, Jinnaram Mandal, Sangareddy - 502319.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Gaddapotharam+Industrial+Area+Jinnaram+Sangareddy" target="_blank" class="btn-nav-map">
+                            <i class="fa-solid fa-location-arrow"></i> Navigate to Unit 2
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS BADGES -->
+    <section class="section-padding" id="clients">
+        <div class="container">
+            <h2 class="section-title">Valuable Industrial Clients</h2>
+            <p class="section-subtitle">Trusted supplier to transmission, infrastructure, and pharmaceutical companies.</p>
+
+            <div class="clients-grid">
+                <div class="client-badge">HETERO LABS LIMITED</div>
+                <div class="client-badge">DIVIS LABS</div>
+                <div class="client-badge">METROCHEM</div>
+                <div class="client-badge">PENNAR INDUSTRIES LTD.</div>
+                <div class="client-badge">ICOMM TELE LIMITED</div>
+                <div class="client-badge">SWATHI POWER INFRA</div>
+                <div class="client-badge">GVS PROJECTS PVT. LTD.</div>
+                <div class="client-badge">JUNNA SOLAR SYSTEMS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section class="section-padding" id="contact" style="background: #f8fafc;">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 style="color: var(--accent-gold); font-size: 22px; margin-bottom: 20px;">Contact Sales Desk</h3>
+                    
+                    <div class="info-box" style="margin-bottom: 20px;">
+                        <h4>Promoter</h4>
+                        <p style="font-weight: 700; font-size: 16px;">Mr. Achanta Gopi</p>
+                        <p>Phone: +91 8143891289 / +91 9100917079</p>
+                        <p>Email: maasai.metals@gmail.com</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Factory Office</h4>
+                        <p>MAA SAI METAL INDUSTRIES<br>Sy No: 180/7, Kazipally Village, Jinnaram Mandal, Sangareddy - 502319, Telangana.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--accent-gold); font-size: 22px; margin-bottom: 10px;">Request Quotation</h3>
+                    <p style="color: #94a3b8; font-size: 13px; margin-bottom: 20px;">Enquiries submitted here sync directly into our Maa Sai ERP system.</p>
+
+                    <div id="form-status" style="display:none; padding:10px; border-radius:6px; margin-bottom:15px; font-weight:bold; font-size:13px;"></div>
+
+                    <form id="enquiryForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label>Product Required</label>
+                            <select id="leadProduct" required>
+                                <option value="Transmission Line Towers up to 220kV">Transmission Line Towers up to 220kV</option>
+                                <option value="Sub-Station Structures up to 220kV">Sub-Station Structures up to 220kV</option>
+                                <option value="Hot Dip Galvanising Services">Hot Dip Galvanising Services</option>
+                                <option value="Solar Structures & Components">Solar Structures & Components</option>
+                                <option value="GI Earthing Flat / Patti">GI Earthing Flat / Patti</option>
+                                <option value="Chemical / Bulk Drug Structures">Chemical / Bulk Drug Structures</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" id="leadName" placeholder="Enter full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="leadPhone" placeholder="Enter 10-digit mobile number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="leadEmail" placeholder="Enter email address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Requirement Details</label>
+                            <textarea id="leadMessage" rows="3" placeholder="Quantity, specs, tonnage..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit-main">Submit Enquiry to ERP ➔</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING ACTION BUTTONS -->
+    <div class="floating-actions">
+        <a href="https://wa.me/918143891289" target="_blank" class="float-btn float-wa" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="tel:+918143891289" class="float-btn float-call" title="Call Sales"><i class="fa-solid fa-phone"></i></a>
+    </div>
+
+    <!-- CLEANED UP ENTERPRISE FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Maa Sai Metal</h4>
+                    <p style="font-size: 12.5px; line-height: 1.8;">Manufacturer & Hot-Dip Galvanizer of 220kV Transmission Line Towers, Substation Structures, Cable Trays, and GI Earthing Flats.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">Company Profile</a></li>
+                        <li><a href="#products">Capabilities</a></li>
+                        <li><a href="#projects">Project History</a></li>
+                        <li><a href="/track">Live Order Tracker</a></li>
+                        <li><a href="/login.html">Admin Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Statutory Details</h4>
+                    <ul>
+                        <li><strong>GSTIN:</strong> 36AOGPA8741L1ZQ</li>
+                        <li><strong>UDYAM:</strong> UDYAM-TS-25-0000357</li>
+                        <li><strong>Promoter:</strong> Achanta Gopi</li>
+                        <li><strong>Bank:</strong> State Bank of India</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Plant Address</h4>
+                    <p style="font-size:12px; line-height: 1.7;">Unit-1: Sy No: 180/7, Kazipally (V), Jinnaram (M), Sangareddy, TS - 502319.<br>Unit-2: Sy No: 25/B1, Gaddapotharam (V), TS.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>MAA SAI METAL INDUSTRIES</strong>. All Rights Reserved. Engineered for Quality.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS SCRIPT -->
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const statusDiv = document.getElementById("form-status");
+
+            const leadData = {
+                product: document.getElementById("leadProduct").value,
+                name: document.getElementById("leadName").value,
+                phone: document.getElementById("leadPhone").value,
+                email: document.getElementById("leadEmail").value,
+                message: document.getElementById("leadMessage").value
+            };
+
+            statusDiv.style.display = "block";
+            statusDiv.style.background = "#1e293b";
+            statusDiv.style.color = "#f5ab1d";
+            statusDiv.innerText = "Submitting enquiry to Maa Sai ERP...";
+
+            try {
+                const res = await fetch("/api/leads", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(leadData)
+                });
+
+                const result = await res.json();
+                if (res.ok) {
+                    statusDiv.style.background = "#dcfce7";
+                    statusDiv.style.color = "#166534";
+                    statusDiv.innerText = "Enquiry saved successfully! Synced to Admin Portal.";
+                    document.getElementById("enquiryForm").reset();
+                } else {
+                    statusDiv.style.background = "#fee2e2";
+                    statusDiv.style.color = "#991b1b";
+                    statusDiv.innerText = result.message || "Error submitting enquiry.";
+                }
+            } catch (err) {
+                statusDiv.style.background = "#fee2e2";
+                statusDiv.style.color = "#991b1b";
+                statusDiv.innerText = "Server connection error. Ensure node server.js is active.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "maasai-metal",
+  "version": "1.0.0",
+  "description": "MAA SAI METAL INDUSTRIES - Enterprise Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/TiruRamNarla/maasai-metal.git"
+  },
+  "keywords": [
+    "metal-fabrication",
+    "transmission-towers",
+    "galvanizing"
+  ],
+  "author": "MAA SAI METAL INDUSTRIES",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/TiruRamNarla/maasai-metal/issues"
+  },
+  "homepage": "https://gitlab.com/TiruRamNarla/maasai-metal#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.10.1"
+  }
+}
