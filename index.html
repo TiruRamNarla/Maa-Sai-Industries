@@ -109,9 +109,39 @@
         .map-info { padding: 18px; }
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-navy); color: var(--accent-gold); padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 12.5px; margin-top: 12px; }
 
-        /* --- CLIENTS --- */
-        .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .client-badge { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px; text-align: center; font-weight: 700; font-size: 12px; color: var(--primary-navy); }
+        /* --- ENHANCED CLIENTS SECTION STYLES --- */
+        .clients-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 16px; 
+        }
+        .client-badge { 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-left: 4px solid var(--accent-gold); 
+            padding: 16px 14px; 
+            border-radius: 8px; 
+            text-align: left; 
+            font-weight: 700; 
+            font-size: 12.5px; 
+            color: var(--primary-navy); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            transition: all 0.25s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .client-badge i {
+            color: var(--accent-gold);
+            font-size: 14px;
+        }
+        .client-badge:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-navy);
+            border-left-color: var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(13, 27, 56, 0.12);
+            background: #fdfbf7;
+        }
 
         /* --- CONTACT & FORM --- */
         .contact-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; background: var(--primary-navy); color: #ffffff; padding: 40px; border-radius: 12px; }
@@ -441,17 +471,23 @@
     <section class="section-padding" id="clients">
         <div class="container">
             <h2 class="section-title">Valuable Industrial Clients</h2>
-            <p class="section-subtitle">Trusted supplier to transmission, infrastructure, and pharmaceutical companies.</p>
+            <p class="section-subtitle">Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.</p>
 
             <div class="clients-grid">
-                <div class="client-badge">HETERO LABS LIMITED</div>
-                <div class="client-badge">DIVIS LABS</div>
-                <div class="client-badge">METROCHEM</div>
-                <div class="client-badge">PENNAR INDUSTRIES LTD.</div>
-                <div class="client-badge">ICOMM TELE LIMITED</div>
-                <div class="client-badge">SWATHI POWER INFRA</div>
-                <div class="client-badge">GVS PROJECTS PVT. LTD.</div>
-                <div class="client-badge">JUNNA SOLAR SYSTEMS</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> HETERO LABS LIMITED</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> DIVIS LABS</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> METROCHEM</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> PENNAR INDUSTRIES LTD.</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> ICOMM TELE LIMITED</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> LAKSHMI NARASIMHA CONSTRUCTIONS</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> SUNSHINE INFRATECH</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> OGN POWER & INFRA PVT. LTD.</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> TERRA INFRA PROJECTS</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> SWATHI POWER INFRA</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> SRI VENKATESHWARA POWER LINES</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> SRI LAKSHMI ELECTRICALS</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> GVS PROJECTS PVT. LTD.</div>
+                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> JUNNA SOLAR SYSTEMS</div>
             </div>
         </div>
     </section>
