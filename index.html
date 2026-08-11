@@ -119,7 +119,7 @@
             box-shadow: 0 6px 16px rgba(245, 171, 29, 0.3); 
         }
 
-        /* --- LEVEL 5: 3D HERO SECTION (TECHNICAL GRID & PARTICLES) --- */
+        /* --- 3D HERO SECTION --- */
         .hero { 
             position: relative; 
             background: radial-gradient(circle at 70% 30%, #1a2b4c 0%, #081023 100%); 
@@ -131,7 +131,7 @@
             overflow: hidden;
         }
 
-        /* Technical Engineering Drawing Grid Overlay */
+        /* Technical Grid Lines */
         .hero::before {
             content: '';
             position: absolute;
@@ -219,7 +219,7 @@
         .why-content h4 { color: var(--primary-navy); font-size: 17px; margin-bottom: 6px; font-weight: 800; }
         .why-content p { color: var(--text-muted); font-size: 13.5px; }
 
-        /* --- LEVEL 4: PRODUCTS SECTION (3D TILT, GOLD GLOW & LIGHT REFLECTION) --- */
+        /* --- PRODUCTS GRID --- */
         .products-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
@@ -240,7 +240,7 @@
             position: relative;
         }
         
-        /* Light Sheen Reflection Effect across the Product Card on Hover */
+        /* Light Sheen Reflection Effect */
         .product-card::after {
             content: '';
             position: absolute;
@@ -334,7 +334,7 @@
             transform: translateX(4px);
         }
 
-        /* --- LEVEL 2: CERTIFICATES (SUBTLE HOVER) --- */
+        /* --- CERTIFICATES & TRUSTSEAL CENTER --- */
         .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
         .cert-card { 
             background: #ffffff; 
@@ -387,23 +387,40 @@
         .map-info { padding: 20px; }
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-navy); color: var(--accent-gold); padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); }
 
-        /* --- LEVEL 2: CLIENTS SECTION (SUBTLE HOVER) --- */
+        /* --- GLASSMORPHISM INDUSTRIAL CLIENTS SECTION --- */
+        #clients {
+            background: radial-gradient(circle at 50% 50%, #0d1b38 0%, #081023 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        #clients::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+            background-size: 35px 35px;
+            pointer-events: none;
+        }
+
         .clients-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 20px; 
         }
         .client-badge { 
-            background: #ffffff; 
-            border: 1px solid var(--border-color); 
+            background: rgba(13, 27, 56, 0.85); 
+            border: 1px solid rgba(245, 171, 29, 0.3); 
             border-left: 5px solid var(--accent-gold); 
             padding: 20px 18px; 
             border-radius: 10px; 
             text-align: left; 
             font-weight: 800; 
             font-size: 13.5px; 
-            color: var(--primary-navy); 
-            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+            color: #ffffff; 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             transition: all 0.3s ease-in-out;
             display: flex;
             align-items: center;
@@ -413,14 +430,14 @@
         }
         .client-badge i { color: var(--accent-gold); font-size: 16px; flex-shrink: 0; }
         .client-badge:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary-navy);
+            transform: translateY(-4px);
+            background: rgba(19, 34, 71, 0.95);
+            border-color: var(--accent-gold);
             border-left-color: var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(13, 27, 56, 0.12);
-            background: #fdfbf7;
+            box-shadow: 0 12px 28px rgba(245, 171, 29, 0.3);
         }
 
-        /* --- LEVEL 1: CONTACT & FORM (FUNCTIONAL) --- */
+        /* --- CONTACT & FORM --- */
         .contact-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; background: var(--primary-navy); color: #ffffff; padding: 40px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         .info-box h4 { font-size: 12px; color: #94a3b8; text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 0.5px; }
         .form-group { margin-bottom: 16px; }
@@ -511,9 +528,9 @@
     <!-- ANIMATED COUNTERS BAR -->
     <div class="counter-bar">
         <div class="container counter-grid">
-            <div class="counter-item"><h3 class="counter-num" data-target="4.0">4.0 ★</h3><p>IndiaMART Trust Rating</p></div>
-            <div class="counter-item"><h3 class="counter-num" data-target="220">220 kV</h3><p>Tower Capacity</p></div>
-            <div class="counter-item"><h3 class="counter-num" data-target="40">40 MT</h3><p>Daily Output</p></div>
+            <div class="counter-item"><h3>4.0 ★</h3><p>IndiaMART Trust Rating</p></div>
+            <div class="counter-item"><h3>220 kV</h3><p>Tower Capacity</p></div>
+            <div class="counter-item"><h3>40 MT</h3><p>Daily Output</p></div>
             <div class="counter-item"><h3>ISO 9001</h3><p>QMS Certified</p></div>
         </div>
     </div>
@@ -801,27 +818,27 @@
         </div>
     </section>
 
-    <!-- CLIENTS BADGES -->
+    <!-- GLASSMORPHISM INDUSTRIAL CLIENTS SECTION -->
     <section class="section-padding" id="clients">
         <div class="container">
-            <h2 class="section-title">Valuable Industrial Clients</h2>
-            <p class="section-subtitle">Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.</p>
+            <h2 class="section-title" style="color: #ffffff;">Valuable Industrial Clients</h2>
+            <p class="section-subtitle" style="color: #94a3b8;">Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.</p>
 
             <div class="clients-grid">
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>HETERO LABS LIMITED</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>DIVIS LABS</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>METROCHEM</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>PENNAR INDUSTRIES LTD.</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>ICOMM TELE LIMITED</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>LAKSHMI NARASIMHA CONSTRUCTIONS</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>SUNSHINE INFRATECH</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>OGN POWER & INFRA PVT. LTD.</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>TERRA INFRA PROJECTS</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>SWATHI POWER INFRA</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>SRI VENKATESHWARA POWER LINES</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>SRI LAKSHMI ELECTRICALS</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>GVS PROJECTS PVT. LTD.</span></div>
-                <div class="client-badge"><i class="fa-solid fa-circle-check"></i> <span>JUNNA SOLAR SYSTEMS</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>HETERO LABS LIMITED</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>DIVIS LABS</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>METROCHEM</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>PENNAR INDUSTRIES LTD.</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>ICOMM TELE LIMITED</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>LAKSHMI NARASIMHA CONSTRUCTIONS</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SUNSHINE INFRATECH</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>OGN POWER & INFRA PVT. LTD.</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>TERRA INFRA PROJECTS</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SWATHI POWER INFRA</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SRI VENKATESHWARA POWER LINES</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SRI LAKSHMI ELECTRICALS</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>GVS PROJECTS PVT. LTD.</span></div>
+                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>JUNNA SOLAR SYSTEMS</span></div>
             </div>
         </div>
     </section>
@@ -940,7 +957,7 @@
         </div>
     </footer>
 
-    <!-- LEVEL 5 3D & GSAP CONTROL SCRIPTS -->
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
         // --- THREE.JS INTERACTIVE WIREFRAME TRANSMISSION TOWER ---
         (function init3DTower() {
@@ -1019,19 +1036,16 @@
                 mouseY = (e.clientY / window.innerHeight - 0.5) * 0.4;
             });
 
-            // Smooth floating & rotation loop
             let clock = new THREE.Clock();
             function animate() {
                 requestAnimationFrame(animate);
                 const elapsedTime = clock.getElapsedTime();
 
-                // Rotation + vertical float
                 towerGroup.rotation.y += 0.006;
                 towerGroup.position.y = Math.sin(elapsedTime * 1.2) * 0.2;
 
                 particles.rotation.y -= 0.0015;
 
-                // Mouse Parallax
                 towerGroup.rotation.x = mouseY * 0.25;
                 towerGroup.rotation.z = mouseX * 0.25;
 
