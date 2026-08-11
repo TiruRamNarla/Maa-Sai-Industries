@@ -95,8 +95,8 @@
         .project-card h4 { color: var(--primary-navy); font-size: 15px; margin-bottom: 6px; }
         .project-card p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px; }
 
-        /* --- CERTIFICATES DOWNLOAD CENTER STYLES --- */
-        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        /* --- CERTIFICATES & TRUSTSEAL CENTER STYLES --- */
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .cert-card { 
             background: #ffffff; 
             border: 1px solid var(--border-color); 
@@ -106,6 +106,9 @@
             text-align: center; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .cert-card:hover { transform: translateY(-4px); border-color: var(--primary-navy); border-top-color: var(--accent-gold); }
         .cert-card i { font-size: 40px; color: var(--primary-navy); margin-bottom: 12px; }
@@ -122,6 +125,7 @@
             transition: background 0.2s;
         }
         .btn-download-cert:hover { background: var(--secondary-navy); }
+        .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px; }
 
         /* --- MAPS --- */
         .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
@@ -224,24 +228,24 @@
     <section class="hero" id="about">
         <div class="container hero-grid">
             <div>
-                <span class="hero-badge">PROMOTER: MR. GOPI ACHANTI</span>
+                <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> INDIAMART TRUSTSEAL VERIFIED SUPPLIER</span>
                 <h2>Transmission Line Towers & Hot-Dip Galvanizing</h2>
                 <p>Manufacturing lattice transmission towers up to 220kV, sub-station gantries, cable trays, and heavy chemical plant steel structures with in-house galvanizing facilities.</p>
 
                 <div class="hero-action-btns">
                     <a href="#contact" class="btn-quote">Get Instant Quote ➔</a>
-                    <a href="#certs" class="btn-pdf"><i class="fa-solid fa-certificate"></i> View ISO & Registrations</a>
+                    <a href="https://www.maasaimetal.com/" target="_blank" class="btn-pdf"><i class="fa-solid fa-store"></i> IndiaMART Catalog &rarr;</a>
                 </div>
             </div>
 
             <div style="background: #ffffff; color: var(--text-dark); padding: 24px; border-radius: 10px; border-top: 5px solid var(--accent-gold);">
                 <h3 style="color: var(--primary-navy); font-size: 17px; margin-bottom: 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px;">Enterprise Credentials</h3>
                 <ul style="list-style: none; font-size: 13px; line-height: 2;">
-                    <li><strong>ISO Standard:</strong> ISO 9001:2015 Certified</li>
+                    <li><strong>IndiaMART Status:</strong> <span style="color:#166534; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> TrustSEAL Verified (2+ Yrs)</span></li>
+                    <li><strong>ISO Standard:</strong> ISO 9001:2015 QMS Certified</li>
                     <li><strong>UDYAM Reg:</strong> UDYAM-TS-25-0000357</li>
                     <li><strong>GSTIN:</strong> 36AOGPA8741L1ZQ</li>
-                    <li><strong>Banking Partner:</strong> State Bank of India</li>
-                    <li><strong>Workforce:</strong> 40+ Skilled Engineers & Staff</li>
+                    <li><strong>Promoter:</strong> Gopi Achanti</li>
                 </ul>
             </div>
         </div>
@@ -250,7 +254,7 @@
     <!-- ANIMATED COUNTERS BAR -->
     <div class="counter-bar">
         <div class="container counter-grid">
-            <div class="counter-item"><h3>40+</h3><p>Industrial Clients</p></div>
+            <div class="counter-item"><h3>4.0 ★</h3><p>IndiaMART Trust Rating</p></div>
             <div class="counter-item"><h3>220 kV</h3><p>Tower Capacity</p></div>
             <div class="counter-item"><h3>40 MT</h3><p>Daily Output</p></div>
             <div class="counter-item"><h3>ISO 9001</h3><p>QMS Certified</p></div>
@@ -302,8 +306,8 @@
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-certificate"></i></div>
                     <div class="why-content">
-                        <h4>ISO Quality Assurance</h4>
-                        <p>Full material test certificates (MTC) provided with chemical & mechanical analysis for every batch.</p>
+                        <h4>Verified Supplier</h4>
+                        <p>IndiaMART TrustSEAL Verified Supplier and ISO 9001:2015 Certified Quality Management.</p>
                     </div>
                 </div>
             </div>
@@ -416,34 +420,50 @@
         </div>
     </section>
 
-    <!-- CERTIFICATES & DOWNLOAD CENTER -->
+    <!-- CERTIFICATES & TRUSTSEAL CENTER -->
     <section class="section-padding" id="certs">
         <div class="container">
-            <h2 class="section-title">ISO & Statutory Certification Center</h2>
-            <p class="section-subtitle">Official statutory credentials, quality registrations, and ISO compliance certificates.</p>
+            <h2 class="section-title">Trust Verification & Certification Center</h2>
+            <p class="section-subtitle">Official IndiaMART TrustSEAL verification, statutory credentials, and ISO compliance certificates.</p>
 
             <div class="certs-grid">
+                <!-- INDIAMART TRUSTSEAL CARD -->
+                <div class="cert-card">
+                    <div>
+                        <img src="/indiamart-trustseal.png" alt="IndiaMART TrustSEAL Verified Badge" class="trustseal-badge-img" onerror="this.style.display='none'">
+                        <h4>IndiaMART TrustSEAL</h4>
+                        <p><strong>Badge:</strong> TrustSEAL Verified (2+ Years)<br><strong>Rating:</strong> 4.0 ★★★★☆ (4 Reviews)<br><strong>Response Rate:</strong> 54%</p>
+                    </div>
+                    <a href="https://www.maasaimetal.com/" target="_blank" class="btn-download-cert"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit IndiaMART Profile &rarr;</a>
+                </div>
+
                 <!-- ISO CERTIFICATE CARD -->
                 <div class="cert-card">
-                    <i class="fa-solid fa-award"></i>
-                    <h4>ISO 9001:2015 QMS</h4>
-                    <p><strong>Cert No:</strong> QMS-MMXXV-09-15913<br><strong>Issuer:</strong> WRG Certifications / AIAO-BAR USA<br><strong>Validity:</strong> Aug 2025 – Aug 2028</p>
+                    <div>
+                        <i class="fa-solid fa-award"></i>
+                        <h4>ISO 9001:2015 QMS</h4>
+                        <p><strong>Cert No:</strong> QMS-MMXXV-09-15913<br><strong>Issuer:</strong> WRG Certifications / AIAO-BAR USA<br><strong>Validity:</strong> Aug 2025 – Aug 2028</p>
+                    </div>
                     <a href="/ISO_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
 
                 <!-- GST REGISTRATION CARD -->
                 <div class="cert-card">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                    <h4>GST Registration</h4>
-                    <p><strong>GSTIN:</strong> 36AOGPA8741L1ZQ<br><strong>Legal Name:</strong> GOPI ACHANTA<br><strong>Jurisdiction:</strong> Sangareddy, Telangana</p>
+                    <div>
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <h4>GST Registration</h4>
+                        <p><strong>GSTIN:</strong> 36AOGPA8741L1ZQ<br><strong>Legal Name:</strong> GOPI ACHANTA<br><strong>Jurisdiction:</strong> Sangareddy, Telangana</p>
+                    </div>
                     <a href="/GST_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
 
                 <!-- UDYAM MSME CARD -->
                 <div class="cert-card">
-                    <i class="fa-solid fa-id-card"></i>
-                    <h4>UDYAM MSME Certificate</h4>
-                    <p><strong>Udyam No:</strong> UDYAM-TS-25-0000357<br><strong>Category:</strong> Micro Manufacturing<br><strong>Ministry:</strong> Ministry of MSME, Govt of India</p>
+                    <div>
+                        <i class="fa-solid fa-id-card"></i>
+                        <h4>UDYAM MSME Certificate</h4>
+                        <p><strong>Udyam No:</strong> UDYAM-TS-25-0000357<br><strong>Category:</strong> Micro Manufacturing<br><strong>Ministry:</strong> Ministry of MSME, Govt of India</p>
+                    </div>
                     <a href="/UDYAM_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
             </div>
@@ -595,15 +615,15 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>Maa Sai Metal</h4>
-                    <p style="font-size: 12.5px; line-height: 1.8;">ISO 9001:2015 Certified Manufacturer & Hot-Dip Galvanizer of Transmission Line Towers, Substation Structures, Cable Trays, and GI Earthing Flats.</p>
+                    <p style="font-size: 12.5px; line-height: 1.8;">ISO 9001:2015 Certified & IndiaMART TrustSEAL Verified Manufacturer of Transmission Line Towers, Substation Structures, and GI Earthing Flats.</p>
                 </div>
 
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#about">Company Profile</a></li>
-                        <li><a href="#products">Capabilities</a></li>
-                        <li><a href="#certs">Certificates</a></li>
+                        <li><a href="https://www.maasaimetal.com/" target="_blank">IndiaMART Catalog</a></li>
+                        <li><a href="#certs">Certificates & TrustSEAL</a></li>
                         <li><a href="/track">Live Order Tracker</a></li>
                         <li><a href="/login.html">Admin Login</a></li>
                     </ul>
@@ -612,10 +632,10 @@
                 <div class="footer-col">
                     <h4>Statutory Details</h4>
                     <ul>
+                        <li><strong>IndiaMART:</strong> TrustSEAL Verified</li>
                         <li><strong>ISO QMS:</strong> ISO 9001:2015 Certified</li>
                         <li><strong>GSTIN:</strong> 36AOGPA8741L1ZQ</li>
                         <li><strong>UDYAM:</strong> UDYAM-TS-25-0000357</li>
-                        <li><strong>Promoter:</strong> Achanta Gopi</li>
                     </ul>
                 </div>
 
