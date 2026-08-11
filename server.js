@@ -1,521 +1,519 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const dns = require('dns');
-
-// Configure DNS servers if needed for local network environments
-try {
-  dns.setServers(['8.8.8.8', '8.8.4.4']);
-} catch (e) {
-  console.log("Using default network DNS settings.");
-}
-
-// Models loaded from root directory
-const Admin = require('./Admin');
-const Lead = require('./Lead');
-const Order = require('./Order');
-const Inventory = require('./Inventory');
-const Quotation = require('./Quotation');
-const Customer = require('./Customer');
-const Product = require('./Product');
+const path = require('path');
+const axios = require('axios');
+const imaps = require('imap-simple');
+const simpleParser = require('mailparser').simpleParser;
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-mongoose.set('bufferCommands', false);
-
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'public'))); // Serves html, images, pdfs from public folder
 
-// Serve all static files (HTML, CSS, JS, Images, and PDFs)
-app.use(express.static(__dirname));
+// =================================────────────────=========
+// MONGOOSE DATABASE SCHEMAS & MODELS
+// =================================────────────────=========
 
-// MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://tiruramchowdary_db_user:ram2004@cluster0.8foz0if.mongodb.net/myDatabase?retryWrites=true&w=majority&appName=Cluster0";
+// 1. CRM Lead Schema
+const LeadSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, default: '' },
+    product: { type: String, required: true },
+    message: { type: String, default: '' },
+    source: { type: String, default: 'Website' },
+    status: { type: String, default: 'New' },
+    createdAt: { type: Date, default: Date.now }
+});
+const Lead = mongoose.model('Lead', LeadSchema);
 
-mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
-  .then(() => {
-    console.log("✅ Connected to MongoDB Atlas!");
-    seedInitialInventory();
-    seedInitialMasters();
-  })
-  .catch(err => {
-    console.error("❌ MongoDB Connection Error:", err.message);
-  });
+// 2. Production Order Schema
+const OrderSchema = new mongoose.Schema({
+    orderId: { type: String, unique: true },
+    customerName: { type: String, required: true },
+    project: { type: String, default: 'General Infrastructure' },
+    item: { type: String, required: true },
+    totalWeightMT: { type: Number, default: 0 },
+    amount: { type: String, default: '0' },
+    currentStage: { type: String, default: 'Order' },
+    stages: [{
+        stageName: String,
+        completed: Boolean,
+        remarks: String,
+        updatedAt: { type: Date, default: Date.now }
+    }],
+    expectedDispatch: { type: Date },
+    createdAt: { type: Date, default: Date.now }
+});
 
-// --- SEED DATA FUNCTIONS ---
-async function seedInitialInventory() {
-  try {
-    const count = await Inventory.countDocuments();
-    if (count === 0) {
-      await Inventory.insertMany([
-        { itemCategory: 'Steel Angles', itemName: 'ISA 65x65x6 (IS 2062)', stockQty: 45, unit: 'MT', minimumStock: 10, supplier: 'SAIL' },
-        { itemCategory: 'Channels', itemName: 'ISMC 100 Channels', stockQty: 28, unit: 'MT', minimumStock: 8, supplier: 'RINL' },
-        { itemCategory: 'Flats', itemName: 'MS Flat 50x6 mm', stockQty: 15, unit: 'MT', minimumStock: 5, supplier: 'Local Vendor' },
-        { itemCategory: 'Zinc', itemName: 'Pure Zinc Slabs (99.99%)', stockQty: 4, unit: 'MT', minimumStock: 5, supplier: 'Hindustan Zinc' }
-      ]);
-      console.log("✅ Multi-category inventory seeded!");
+// Auto-generate Order ID before saving
+OrderSchema.pre('save', async function (next) {
+    if (!this.orderId) {
+        const count = await mongoose.model('Order').countDocuments();
+        this.orderId = `MSM-ORD-${1000 + count + 1}`;
     }
-  } catch (err) {
-    console.error("Inventory Seed Error:", err.message);
-  }
-}
+    next();
+});
+const Order = mongoose.model('Order', OrderSchema);
 
-async function seedInitialMasters() {
-  try {
-    const custCount = await Customer.countDocuments();
-    if (custCount === 0) {
-      await Customer.create({
-        customerId: 'CUST-1001',
-        companyName: 'L&T Power Transmission',
-        contactPerson: 'Rajesh Sharma',
-        phone: '9876543210',
-        email: 'rsharma@intecc.com',
-        gstin: '36AAACL1234H1ZP',
-        billingAddress: 'Plot 45, HITEC City, Hyderabad, TS',
-        outstandingBalance: 450000
-      });
-      console.log("✅ Customer Master seeded!");
+// 3. Customer Master Schema
+const CustomerSchema = new mongoose.Schema({
+    customerId: { type: String, unique: true },
+    companyName: { type: String, required: true },
+    contactPerson: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, default: '' },
+    gstin: { type: String, default: 'N/A' },
+    billingAddress: { type: String, required: true },
+    outstandingBalance: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now }
+});
+
+CustomerSchema.pre('save', async function (next) {
+    if (!this.customerId) {
+        const count = await mongoose.model('Customer').countDocuments();
+        this.customerId = `CUST-${1000 + count + 1}`;
     }
+    next();
+});
+const Customer = mongoose.model('Customer', CustomerSchema);
 
-    const prodCount = await Product.countDocuments();
-    if (prodCount === 0) {
-      await Product.insertMany([
-        { productCode: 'TWR-33KV', productName: 'M Type 33KV Electrical Tower', category: 'Transmission Towers', standardRatePerUnit: 78000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062 E250' },
-        { productCode: 'CBL-TRAY', productName: 'Ladder Type Cable Tray Galvanizing', category: 'Structural Fabrication', standardRatePerUnit: 42000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062' },
-        { productCode: 'BARRIER-3X5', productName: 'Highway Crash Barrier Galvanizing', category: 'Structural Fabrication', standardRatePerUnit: 32000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062 E250' },
-        { productCode: 'GRATING-MS', productName: 'Metal Gratings Hot Dip Galvanizing', category: 'Structural Fabrication', standardRatePerUnit: 29000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062' },
-        { productCode: 'STEEL-STRUCT', productName: 'General Steel Structure Galvanizing', category: 'Structural Fabrication', standardRatePerUnit: 28000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062 E250' },
-        { productCode: 'TWR-TLINE', productName: 'Transmission Line Tower Galvanizing', category: 'Transmission Towers', standardRatePerUnit: 20300, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062 E250' },
-        { productCode: 'EARTH-STRIP', productName: 'GI Earthing Strip Galvanizing', category: 'GI Earthing Strip', standardRatePerUnit: 19000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062' },
-        { productCode: 'SOLAR-STRUCT', productName: 'Solar Structure Hot Dip Galvanizing', category: 'Solar Structures', standardRatePerUnit: 17000, hsnCode: '7308', unit: 'MT', steelGrade: 'IS 2062 E250' }
-      ]);
-      console.log("✅ IndiaMART Product Master seeded!");
+// 4. Product Master Schema
+const ProductSchema = new mongoose.Schema({
+    productCode: { type: String, required: true, unique: true },
+    productName: { type: String, required: true },
+    category: { type: String, required: true },
+    hsnCode: { type: String, default: '7308' },
+    steelGrade: { type: String, default: 'IS 2062 E250' },
+    standardRatePerUnit: { type: Number, required: true },
+    unit: { type: String, default: 'MT' }
+});
+const Product = mongoose.model('Product', ProductSchema);
+
+// 5. Quotation Schema
+const QuotationSchema = new mongoose.Schema({
+    quotationNumber: { type: String, unique: true },
+    customerName: { type: String, required: true },
+    customerPhone: { type: String, required: true },
+    items: [{
+        description: String,
+        quantity: Number,
+        ratePerUnit: Number,
+        amount: Number
+    }],
+    totalAmount: { type: Number, required: true },
+    taxAmount: { type: Number, required: true },
+    grandTotal: { type: Number, required: true },
+    status: { type: String, default: 'Issued' },
+    createdAt: { type: Date, default: Date.now }
+});
+
+QuotationSchema.pre('save', async function (next) {
+    if (!this.quotationNumber) {
+        const count = await mongoose.model('Quotation').countDocuments();
+        this.quotationNumber = `MSM-QT-${100 + count + 1}`;
     }
-  } catch (err) {
-    console.error("Master Seeding Error:", err.message);
-  }
-}
-
-// Fallback Order Data
-const fallbackOrders = [
-  {
-    orderId: "ORD-1002",
-    customerName: "L&T Power Transmission",
-    project: "400KV Substation Tower Project",
-    item: "33KV Substation Tower Structures",
-    amount: 350000,
-    totalWeightMT: 18.5,
-    drawingNumber: "DWG-LNT-400KV/R2",
-    currentStage: "Galvanizing",
-    expectedDispatch: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
-    stages: [
-      { stageName: 'Order', status: 'Completed' },
-      { stageName: 'Planning', status: 'Completed' },
-      { stageName: 'Raw Material', status: 'Completed' },
-      { stageName: 'Fabrication', status: 'Completed' },
-      { stageName: 'Punching', status: 'Completed' },
-      { stageName: 'Drilling', status: 'Completed' },
-      { stageName: 'Galvanizing', status: 'In Progress' },
-      { stageName: 'Inspection', status: 'Pending' },
-      { stageName: 'Packing', status: 'Pending' },
-      { stageName: 'Dispatch', status: 'Pending' },
-      { stageName: 'Delivered', status: 'Pending' }
-    ],
-    historyTimeline: [
-      { stageName: "Order Created", remarks: "Order registered in ERP", timestamp: new Date() },
-      { stageName: "Galvanizing Started", remarks: "Moved to Hot-Dip Zinc Bath Tank 2", timestamp: new Date() }
-    ]
-  }
-];
-
-// --- HTML PAGE ROUTES ---
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/login.html', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
-app.get('/track', (req, res) => res.sendFile(path.join(__dirname, 'track.html')));
-app.get('/client-portal.html', (req, res) => res.sendFile(path.join(__dirname, 'client-portal.html')));
-app.get('/admin-dashboard.html', (req, res) => res.sendFile(path.join(__dirname, 'admin-dashboard.html')));
-
-// --- AUTHENTICATION APIS ---
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  if ((username || '').trim() === 'gopi_achanti' && (password || '').trim() === 'admin123') {
-    res.cookie('adminSession', 'authenticated_gopi_achanti', { httpOnly: true, maxAge: 86400000 });
-    return res.json({ success: true, user: { username: 'gopi_achanti' } });
-  }
-  return res.status(401).json({ success: false, message: "Invalid Credentials." });
+    next();
 });
+const Quotation = mongoose.model('Quotation', QuotationSchema);
 
-app.post('/api/admin/login', async (req, res) => {
-  const { username, password } = req.body;
-  if ((username || '').trim() === 'gopi_achanti' && (password || '').trim() === 'admin123') {
-    res.cookie('adminSession', 'authenticated_gopi_achanti', { httpOnly: true, maxAge: 86400000 });
-    return res.json({ success: true, redirect: '/admin-dashboard.html', user: { username: 'gopi_achanti' } });
-  }
-  return res.status(401).json({ success: false, message: "Invalid Credentials." });
+// 6. Inventory Schema
+const InventorySchema = new mongoose.Schema({
+    itemCategory: { type: String, required: true },
+    itemName: { type: String, required: true },
+    stockQty: { type: Number, required: true },
+    minimumStock: { type: Number, default: 5 },
+    unit: { type: String, default: 'MT' },
+    supplier: { type: String, default: 'Primary Steel Mill' }
 });
+const Inventory = mongoose.model('Inventory', InventorySchema);
 
-app.post('/api/logout', (req, res) => {
-  res.clearCookie('adminSession');
-  res.json({ success: true });
-});
+// =================================────────────────=========
+// ALTERNATIVE 1: WEB FORM ENQUIRY & WHATSAPP PUSH ALERT
+// =================================────────────────=========
+app.post('/api/leads', async (req, res) => {
+    try {
+        const { name, phone, email, product, message } = req.body;
 
-// --- CUSTOMER MASTER APIS ---
-app.get('/api/customers', async (req, res) => {
-  try {
-    const search = req.query.search || '';
-    let query = {};
-    if (search) {
-      query.$or = [
-        { companyName: { $regex: search, $options: 'i' } },
-        { contactPerson: { $regex: search, $options: 'i' } },
-        { phone: { $regex: search, $options: 'i' } },
-        { customerId: { $regex: search, $options: 'i' } }
-      ];
+        if (!name || !phone || !product) {
+            return res.status(400).json({ success: false, message: 'Name, phone, and product are required.' });
+        }
+
+        // Save Lead to MongoDB
+        const newLead = new Lead({ name, phone, email, product, message, source: 'Website' });
+        await newLead.save();
+
+        // Asynchronous Notification Alert
+        const promoterPhone = '918143891289';
+        const alertText = encodeURIComponent(`*NEW ERP LEAD RECEIVED!*\n\nClient: ${name}\nPhone: ${phone}\nProduct: ${product}\nSpecs: ${message}`);
+        
+        axios.get(`https://api.callmebot.com/whatsapp.php?phone=${promoterPhone}&text=${alertText}&apikey=MAASAI_KEY`)
+            .catch(() => console.log('WhatsApp notification link generated.'));
+
+        res.status(201).json({ success: true, message: 'Enquiry saved successfully and synced to Admin Portal!' });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
     }
-    const customers = await Customer.find(query).sort({ createdAt: -1 });
-    res.json(customers);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/customers', async (req, res) => {
-  try {
-    const count = await Customer.countDocuments();
-    const customerId = `CUST-${1001 + count}`;
-    const customer = await Customer.create({ customerId, ...req.body });
-    res.status(201).json({ success: true, customer });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-app.delete('/api/customers/:id', async (req, res) => {
-  try {
-    await Customer.findByIdAndDelete(req.params.id);
-    res.json({ success: true, message: 'Customer record deleted.' });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// --- PRODUCT MASTER APIS ---
-app.get('/api/products', async (req, res) => {
-  try {
-    const products = await Product.find({}).sort({ category: 1 });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/products', async (req, res) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(201).json({ success: true, product });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// --- QUOTATION APIS ---
-app.get('/api/quotations', async (req, res) => {
-  try {
-    const quotations = await Quotation.find({}).sort({ createdAt: -1 });
-    res.json(quotations);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/quotations', async (req, res) => {
-  try {
-    const { customerName, customerPhone, items, totalAmount, taxAmount, grandTotal } = req.body;
-    const count = await Quotation.countDocuments();
-    const quotationNumber = `MSM-QT-${10001 + count}`;
-
-    const newQuotation = await Quotation.create({
-      quotationNumber,
-      customerName,
-      customerPhone,
-      items,
-      totalAmount,
-      taxAmount,
-      grandTotal,
-      status: 'Issued'
-    });
-
-    res.status(201).json({ success: true, quotation: newQuotation });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-app.patch('/api/quotations/:id/status', async (req, res) => {
-  try {
-    const quote = await Quotation.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
-    res.json({ success: true, quote });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// --- PRODUCTION ORDERS APIS ---
-app.get('/api/orders/track/:orderId', async (req, res) => {
-  try {
-    const rawOrderId = req.params.orderId;
-    if (!rawOrderId) return res.status(400).json({ success: false, message: 'Order ID required.' });
-    
-    const sanitized = rawOrderId.trim().toUpperCase();
-
-    if (mongoose.connection.readyState === 1) {
-      const order = await Order.findOne({ orderId: { $regex: new RegExp(`^${sanitized}$`, 'i') } });
-      if (order) {
-        return res.json({
-          success: true,
-          orderId: order.orderId,
-          customerName: order.customerName || order.customer,
-          project: order.project,
-          item: order.item,
-          amount: order.amount,
-          totalWeightMT: order.totalWeightMT,
-          drawingNumber: order.drawingNumber,
-          currentStage: order.currentStage,
-          expectedDispatch: order.expectedDispatch,
-          stages: order.stages,
-          historyTimeline: order.historyTimeline
-        });
-      }
-    }
-
-    const fallback = fallbackOrders.find(f => f.orderId.toUpperCase() === sanitized);
-    if (fallback) return res.json({ success: true, ...fallback });
-
-    return res.status(404).json({ success: false, message: 'Order reference not found.' });
-  } catch (err) {
-    const sanitized = (req.params.orderId || '').trim().toUpperCase();
-    const fallback = fallbackOrders.find(f => f.orderId.toUpperCase() === sanitized);
-    if (fallback) return res.json({ success: true, ...fallback });
-    res.status(500).json({ success: false, message: "Database lookup failed." });
-  }
-});
-
-app.get('/api/orders', async (req, res) => {
-  try {
-    if (mongoose.connection.readyState !== 1) return res.json(fallbackOrders);
-    const orders = await Order.find({}).sort({ createdAt: -1 });
-    res.json(orders);
-  } catch (err) {
-    res.json(fallbackOrders);
-  }
-});
-
-app.post('/api/orders', async (req, res) => {
-  try {
-    const { customerName, project, item, amount, totalWeightMT, drawingNumber, expectedDispatch } = req.body;
-    const ALL_STAGES = ['Order', 'Planning', 'Raw Material', 'Fabrication', 'Punching', 'Drilling', 'Galvanizing', 'Inspection', 'Packing', 'Dispatch', 'Delivered'];
-    
-    const initialStages = ALL_STAGES.map(stageName => ({
-      stageName,
-      status: stageName === 'Order' ? 'Completed' : 'Pending',
-      remarks: stageName === 'Order' ? 'Order registered' : ''
-    }));
-
-    const newOrder = await Order.create({
-      orderId: `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
-      customerName: customerName || 'Valued Industrial Client',
-      project: project || '33KV Substation Structure',
-      item,
-      amount: Number(amount) || 0,
-      totalWeightMT: Number(totalWeightMT) || 0,
-      drawingNumber: drawingNumber || 'DWG-001',
-      expectedDispatch: expectedDispatch || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      currentStage: 'Planning',
-      stages: initialStages,
-      historyTimeline: [{ stageName: 'Order', status: 'Completed', remarks: 'Order registered in ERP', timestamp: new Date() }]
-    });
-
-    res.status(201).json({ success: true, order: newOrder });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-app.patch('/api/orders/:id/stage', async (req, res) => {
-  try {
-    const { currentStage, remarks } = req.body;
-    const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
-
-    order.currentStage = currentStage;
-    order.historyTimeline.push({ stageName: currentStage, status: 'In Progress', remarks: remarks || `Moved to ${currentStage}`, timestamp: new Date() });
-
-    let reached = true;
-    order.stages.forEach(st => {
-      if (st.stageName === currentStage) {
-        st.status = 'In Progress';
-        if (remarks) st.remarks = remarks;
-        st.updatedAt = new Date();
-        reached = false;
-      } else if (reached) {
-        st.status = 'Completed';
-      } else {
-        st.status = 'Pending';
-      }
-    });
-
-    await order.save();
-    res.json({ success: true, order });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// --- INVENTORY & CRM LEADS APIS ---
-app.get('/api/inventory', async (req, res) => {
-  try {
-    if (mongoose.connection.readyState !== 1) return res.json([]);
-    const items = await Inventory.find({}).sort({ itemCategory: 1 });
-    res.json(items);
-  } catch (err) {
-    res.json([]);
-  }
-});
-
-app.patch('/api/inventory/:id', async (req, res) => {
-  try {
-    const updated = await Inventory.findByIdAndUpdate(req.params.id, { stockQty: req.body.stockQty }, { new: true });
-    res.json({ success: true, item: updated });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
 
 app.get('/api/leads', async (req, res) => {
-  try {
-    if (mongoose.connection.readyState !== 1) return res.json([]);
-    const search = req.query.search || '';
-    const status = req.query.status || 'All';
-    let query = {};
+    try {
+        const { search, status } = req.query;
+        let query = {};
 
-    if (status !== 'All') query.status = status;
-    if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { phone: { $regex: search, $options: 'i' } },
-        { product: { $regex: search, $options: 'i' } }
-      ];
+        if (status && status !== 'All') {
+            query.status = status;
+        }
+
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { phone: { $regex: search, $options: 'i' } },
+                { product: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        const leads = await Lead.find(query).sort({ createdAt: -1 });
+        res.json(leads);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    const leads = await Lead.find(query).sort({ createdAt: -1 });
-    res.json(leads);
-  } catch (err) {
-    res.json([]);
-  }
-});
-
-app.post('/api/leads', async (req, res) => {
-  try {
-    const lead = await Lead.create(req.body);
-    res.status(201).json({ success: true, lead });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
 });
 
 app.patch('/api/leads/:id', async (req, res) => {
-  try {
-    const lead = await Lead.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
-    res.json({ success: true, lead });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// --- REPORTS & EXECUTIVE ANALYTICS APIS ---
-app.get('/api/analytics', async (req, res) => {
-  try {
-    if (mongoose.connection.readyState !== 1) {
-      return res.json({ totalLeads: 0, totalOrders: 1, pendingLeads: 0, inGalvanizing: 1, inFabrication: 0, completedOrders: 0 });
+    try {
+        const { status } = req.body;
+        const updated = await Lead.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    const totalLeads = await Lead.countDocuments();
-    const totalOrders = await Order.countDocuments();
-    const inGalvanizing = await Order.countDocuments({ currentStage: 'Galvanizing' });
-    const inFabrication = await Order.countDocuments({ currentStage: 'Fabrication' });
-    const completedOrders = await Order.countDocuments({ currentStage: 'Delivered' });
-
-    res.json({ totalLeads, totalOrders, inGalvanizing, inFabrication, completedOrders });
-  } catch (err) {
-    res.json({ totalLeads: 0, totalOrders: 0, inGalvanizing: 0, inFabrication: 0, completedOrders: 0 });
-  }
 });
 
+// =================================────────────────=========
+// ERP API ENDPOINTS: ORDERS, CUSTOMERS, PRODUCTS, QUOTES
+// =================================────────────────=========
+
+// Analytics Summary
+app.get('/api/analytics', async (req, res) => {
+    try {
+        const totalLeads = await Lead.countDocuments();
+        const totalOrders = await Order.countDocuments();
+        const inFabrication = await Order.countDocuments({ currentStage: 'Fabrication' });
+        const inGalvanizingDocs = await Order.find({ currentStage: 'Galvanizing' });
+        const completedOrders = await Order.countDocuments({ currentStage: { $in: ['Dispatch', 'Delivered'] } });
+
+        const inGalvanizingMT = inGalvanizingDocs.reduce((acc, curr) => acc + (curr.totalWeightMT || 0), 0);
+
+        res.json({
+            totalLeads,
+            totalOrders,
+            inFabrication,
+            inGalvanizing: inGalvanizingMT,
+            completedOrders
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Production Orders
+app.get('/api/orders', async (req, res) => {
+    try {
+        const orders = await Order.find().sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/orders', async (req, res) => {
+    try {
+        const newOrder = new Order(req.body);
+        await newOrder.save();
+        res.status(201).json(newOrder);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.patch('/api/orders/:id/stage', async (req, res) => {
+    try {
+        const { currentStage, remarks } = req.body;
+        const order = await Order.findById(req.params.id);
+
+        if (!order) return res.status(404).json({ message: 'Order not found' });
+
+        order.currentStage = currentStage;
+        order.stages.push({ stageName: currentStage, completed: true, remarks: remarks || '' });
+
+        await order.save();
+        res.json(order);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Customer Master
+app.get('/api/customers', async (req, res) => {
+    try {
+        const { search } = req.query;
+        let query = {};
+        if (search) {
+            query.$or = [
+                { companyName: { $regex: search, $options: 'i' } },
+                { contactPerson: { $regex: search, $options: 'i' } },
+                { phone: { $regex: search, $options: 'i' } }
+            ];
+        }
+        const customers = await Customer.find(query).sort({ createdAt: -1 });
+        res.json(customers);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/customers', async (req, res) => {
+    try {
+        const customer = new Customer(req.body);
+        await customer.save();
+        res.status(201).json(customer);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.delete('/api/customers/:id', async (req, res) => {
+    try {
+        await Customer.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Customer removed' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Product Catalogue
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/products', async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+        res.status(201).json(product);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Quotations Pipeline
+app.get('/api/quotations', async (req, res) => {
+    try {
+        const quotes = await Quotation.find().sort({ createdAt: -1 });
+        res.json(quotes);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/quotations', async (req, res) => {
+    try {
+        const quote = new Quotation(req.body);
+        await quote.save();
+        res.status(201).json(quote);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.patch('/api/quotations/:id/status', async (req, res) => {
+    try {
+        const { status } = req.body;
+        const updated = await Quotation.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Stock Inventory
+app.get('/api/inventory', async (req, res) => {
+    try {
+        const items = await Inventory.find();
+        res.json(items);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.patch('/api/inventory/:id', async (req, res) => {
+    try {
+        const { stockQty } = req.body;
+        const updated = await Inventory.findByIdAndUpdate(req.params.id, { stockQty: Number(stockQty) }, { new: true });
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Reports Endpoints
 app.get('/api/reports/daily-output', async (req, res) => {
-  try {
-    const orders = await Order.find({});
-    const totalOrders = orders.length;
-    let totalTonnageMT = 0;
-    let inFabricationMT = 0;
-    let inGalvanizingMT = 0;
-    let completedMT = 0;
+    try {
+        const orders = await Order.find();
+        const totalTonnageMT = orders.reduce((acc, curr) => acc + (curr.totalWeightMT || 0), 0);
 
-    orders.forEach(o => {
-      const weight = o.totalWeightMT || 0;
-      totalTonnageMT += weight;
-      if (o.currentStage === 'Fabrication') inFabricationMT += weight;
-      if (o.currentStage === 'Galvanizing') inGalvanizingMT += weight;
-      if (o.currentStage === 'Delivered') completedMT += weight;
-    });
-
-    res.json({
-      reportDate: new Date().toLocaleDateString('en-IN'),
-      totalOrders,
-      totalTonnageMT,
-      inFabricationMT,
-      inGalvanizingMT,
-      completedMT,
-      orders
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+        res.json({
+            reportDate: new Date().toLocaleDateString('en-IN'),
+            totalOrders: orders.length,
+            totalTonnageMT,
+            orders
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.get('/api/reports/ledger', async (req, res) => {
-  try {
-    const customers = await Customer.find({});
-    let totalOutstanding = 0;
-
-    const ledger = customers.map(c => {
-      const balance = c.outstandingBalance || 0;
-      totalOutstanding += balance;
-      return {
-        customerId: c.customerId,
-        companyName: c.companyName,
-        contactPerson: c.contactPerson,
-        phone: c.phone,
-        gstin: c.gstin || 'N/A',
-        outstandingBalance: balance
-      };
-    });
-
-    res.json({
-      generatedAt: new Date().toLocaleDateString('en-IN'),
-      totalClients: customers.length,
-      totalOutstanding,
-      ledger
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        const customers = await Customer.find();
+        res.json({ ledger: customers });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// START SERVER
-app.listen(PORT, () => console.log(`🚀 Maa Sai ERP Server active on http://localhost:${PORT}`));
+// Authentication Routes
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    if (username === (process.env.ADMIN_USER || 'admin') && password === (process.env.ADMIN_PASS || 'maasai2026')) {
+        return res.json({ success: true, user: 'Achanta Gopi (CEO)' });
+    }
+    res.status(401).json({ success: false, message: 'Invalid Admin Credentials' });
+});
+
+app.post('/api/logout', (req, res) => {
+    res.json({ success: true, message: 'Logged out successfully' });
+});
+
+// =================================────────────────=========
+// ALTERNATIVE 2: FREE INDIAMART EMAIL PARSER ENGINE
+// =================================────────────────=========
+const imapConfig = {
+    imap: {
+        user: process.env.GMAIL_USER || 'maasai.metals@gmail.com',
+        password: process.env.GMAIL_APP_PASSWORD || '', // Set 16-digit App Password here or in Render Env
+        host: 'imap.gmail.com',
+        port: 993,
+        tls: true,
+        authTimeout: 30000
+    }
+};
+
+async function parseIndiaMARTEmails() {
+    if (!imapConfig.imap.password) return; // Skip if app password is not set
+
+    try {
+        const connection = await imaps.connect(imapConfig);
+        await connection.openBox('INBOX');
+
+        const searchCriteria = ['UNSEEN', ['FROM', 'indiamart.com']];
+        const fetchOptions = { bodies: ['HEADER', 'TEXT', ''], struct: true };
+
+        const messages = await connection.search(searchCriteria, fetchOptions);
+
+        for (let item of messages) {
+            const all = item.parts.find(part => part.which === '');
+            const parsed = await simpleParser(all.body);
+            const emailText = parsed.text || '';
+
+            const nameMatch = emailText.match(/Sender Name:\s*(.*)/i);
+            const phoneMatch = emailText.match(/Mobile:\s*(.*)/i);
+            const productMatch = emailText.match(/Product Name:\s*(.*)/i);
+
+            if (phoneMatch) {
+                const leadData = {
+                    name: nameMatch ? nameMatch[1].trim() : 'IndiaMART Buyer',
+                    phone: phoneMatch[1].trim(),
+                    email: parsed.from?.value?.[0]?.address || 'indiamart@buyer.com',
+                    product: productMatch ? productMatch[1].trim() : 'IndiaMART Enquiry',
+                    message: parsed.subject || 'Inquiry received via IndiaMART',
+                    source: 'IndiaMART Email'
+                };
+
+                await Lead.updateOne(
+                    { phone: leadData.phone },
+                    { $setOnInsert: leadData },
+                    { upsert: true }
+                );
+
+                console.log(`Synced IndiaMART Lead: ${leadData.name} (${leadData.phone})`);
+            }
+        }
+        connection.end();
+    } catch (err) {
+        // Silent catch for IMAP polling
+    }
+}
+
+// Poll Gmail inbox every 15 minutes
+setInterval(parseIndiaMARTEmails, 15 * 60 * 1000);
+
+// =================================────────────────=========
+// MONGOOSE CONNECT & SERVER START
+// =================================────────────────=========
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://admin:maasai2026@cluster0.mongodb.net/maasai_erp?retryWrites=true&w=majority';
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Connected to Maa Sai MongoDB Atlas Cluster');
+        // Initial check for seed data
+        seedDefaultProducts();
+        seedDefaultInventory();
+    })
+    .catch(err => console.error('MongoDB Connection Error:', err));
+
+// Seed default products if database is empty
+async function seedDefaultProducts() {
+    const count = await Product.countDocuments();
+    if (count === 0) {
+        await Product.insertMany([
+            { productCode: 'TWR-220KV', productName: '220kV Transmission Line Tower', category: 'Transmission Towers', standardRatePerUnit: 78000 },
+            { productCode: 'TWR-33KV', productName: '33kV M Type Tower', category: 'Transmission Towers', standardRatePerUnit: 72000 },
+            { productCode: 'SUB-GANTRY', productName: '220kV Substation Structure Gantry', category: 'Substation Structures', standardRatePerUnit: 82000 },
+            { productCode: 'GI-FLAT-50x6', productName: 'GI Earthing Flat 50x6mm', category: 'GI Earthing Strip', standardRatePerUnit: 68000 }
+        ]);
+    }
+}
+
+async function seedDefaultInventory() {
+    const count = await Inventory.countDocuments();
+    if (count === 0) {
+        await Inventory.insertMany([
+            { itemCategory: 'Raw Steel', itemName: 'ISA 65x65x6 Angles', stockQty: 45, minimumStock: 10, unit: 'MT' },
+            { itemCategory: 'Raw Steel', itemName: 'ISA 75x75x6 Angles', stockQty: 32, minimumStock: 8, unit: 'MT' },
+            { itemCategory: 'Galvanizing Bath', itemName: 'Zinc Slabs 99.99% Pure', stockQty: 12, minimumStock: 3, unit: 'MT' },
+            { itemCategory: 'Chemicals', itemName: 'Hydrochloric Acid (HCL)', stockQty: 2500, minimumStock: 500, unit: 'Liters' }
+        ]);
+    }
+}
+
+// Fallback HTML page routing
+app.get('/track', (req, res) => res.sendFile(path.join(__dirname, 'public', 'track.html')));
+app.get('/login.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
+app.get('/admin-dashboard.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html')));
+
+app.listen(PORT, () => {
+    console.log(`MAA SAI METAL ERP Server active on port ${PORT}`);
+});
