@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'))); // Serves html, images, pdfs from public folder
+
+// Serve static assets from both root and public directories if present
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // =================================────────────────=========
 // MONGOOSE DATABASE SCHEMAS & MODELS
@@ -52,7 +55,6 @@ const OrderSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Auto-generate Order ID before saving
 OrderSchema.pre('save', async function (next) {
     if (!this.orderId) {
         const count = await mongoose.model('Order').countDocuments();
@@ -135,7 +137,7 @@ const InventorySchema = new mongoose.Schema({
 const Inventory = mongoose.model('Inventory', InventorySchema);
 
 // =================================────────────────=========
-// ALTERNATIVE 1: WEB FORM ENQUIRY & WHATSAPP PUSH ALERT
+// WEB FORM ENQUIRY & WHATSAPP PUSH ALERT
 // =================================────────────────=========
 app.post('/api/leads', async (req, res) => {
     try {
@@ -145,16 +147,14 @@ app.post('/api/leads', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Name, phone, and product are required.' });
         }
 
-        // Save Lead to MongoDB
         const newLead = new Lead({ name, phone, email, product, message, source: 'Website' });
         await newLead.save();
 
-        // Asynchronous Notification Alert
         const promoterPhone = '918143891289';
         const alertText = encodeURIComponent(`*NEW ERP LEAD RECEIVED!*\n\nClient: ${name}\nPhone: ${phone}\nProduct: ${product}\nSpecs: ${message}`);
         
         axios.get(`https://api.callmebot.com/whatsapp.php?phone=${promoterPhone}&text=${alertText}&apikey=MAASAI_KEY`)
-            .catch(() => console.log('WhatsApp notification link generated.'));
+            .catch(() => console.log('WhatsApp notification trigger completed.'));
 
         res.status(201).json({ success: true, message: 'Enquiry saved successfully and synced to Admin Portal!' });
     } catch (err) {
@@ -408,12 +408,12 @@ app.post('/api/logout', (req, res) => {
 });
 
 // =================================────────────────=========
-// ALTERNATIVE 2: FREE INDIAMART EMAIL PARSER ENGINE
+// FREE INDIAMART EMAIL PARSER ENGINE
 // =================================────────────────=========
 const imapConfig = {
     imap: {
         user: process.env.GMAIL_USER || 'maasai.metals@gmail.com',
-        password: process.env.GMAIL_APP_PASSWORD || '', // Set 16-digit App Password in Render Env
+        password: process.env.GMAIL_APP_PASSWORD || '',
         host: 'imap.gmail.com',
         port: 993,
         tls: true,
@@ -422,7 +422,7 @@ const imapConfig = {
 };
 
 async function parseIndiaMARTEmails() {
-    if (!imapConfig.imap.password) return; // Skip if app password is not set
+    if (!imapConfig.imap.password) return;
 
     try {
         const connection = await imaps.connect(imapConfig);
@@ -471,9 +471,38 @@ async function parseIndiaMARTEmails() {
 setInterval(parseIndiaMARTEmails, 15 * 60 * 1000);
 
 // =================================────────────────=========
+// HTML PAGE ROUTING (HANDLES ROOT & PUBLIC DIRECTORIES)
+// =================================────────────────=========
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
+        if (err) res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    });
+});
+
+app.get('/track', (req, res) => {
+    res.sendFile(path.join(__dirname, 'track.html'), (err) => {
+        if (err) res.sendFile(path.join(__dirname, 'public', 'track.html'));
+    });
+});
+
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'), (err) => {
+        if (err) res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    });
+});
+
+app.get('/admin-dashboard.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin-dashboard.html'), (err) => {
+        if (err) res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html'));
+    });
+});
+
+// =================================────────────────=========
 // MONGOOSE CONNECT & SERVER START
 // =================================────────────────=========
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://tiruramchowdary_db_user:YOUR_DB_PASSWORD_HERE@cluster0.8foz0if.mongodb.net/maasai_erp?retryWrites=true&w=majority';
+
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://tiruramchowdary_db_user:ram2004@cluster0.8foz0if.mongodb.net/maasai_erp?retryWrites=true&w=majority';
 
 mongoose.connect(MONGO_URI)
     .then(() => {
@@ -483,7 +512,6 @@ mongoose.connect(MONGO_URI)
     })
     .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Seed default products if database is empty
 async function seedDefaultProducts() {
     const count = await Product.countDocuments();
     if (count === 0) {
@@ -507,11 +535,6 @@ async function seedDefaultInventory() {
         ]);
     }
 }
-
-// Fallback HTML page routing
-app.get('/track', (req, res) => res.sendFile(path.join(__dirname, 'public', 'track.html')));
-app.get('/login.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
-app.get('/admin-dashboard.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html')));
 
 app.listen(PORT, () => {
     console.log(`MAA SAI METAL ERP Server active on port ${PORT}`);
