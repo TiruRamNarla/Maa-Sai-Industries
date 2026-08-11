@@ -413,7 +413,7 @@ app.post('/api/logout', (req, res) => {
 const imapConfig = {
     imap: {
         user: process.env.GMAIL_USER || 'maasai.metals@gmail.com',
-        password: process.env.GMAIL_APP_PASSWORD || '', // Set 16-digit App Password here or in Render Env
+        password: process.env.GMAIL_APP_PASSWORD || '', // Set 16-digit App Password in Render Env
         host: 'imap.gmail.com',
         port: 993,
         tls: true,
@@ -473,12 +473,11 @@ setInterval(parseIndiaMARTEmails, 15 * 60 * 1000);
 // =================================────────────────=========
 // MONGOOSE CONNECT & SERVER START
 // =================================────────────────=========
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://admin:maasai2026@cluster0.mongodb.net/maasai_erp?retryWrites=true&w=majority';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://tiruramchowdary_db_user:YOUR_DB_PASSWORD_HERE@cluster0.8foz0if.mongodb.net/maasai_erp?retryWrites=true&w=majority';
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('Connected to Maa Sai MongoDB Atlas Cluster');
-        // Initial check for seed data
         seedDefaultProducts();
         seedDefaultInventory();
     })
