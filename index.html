@@ -17,10 +17,10 @@
 
     <title>MAA SAI METAL INDUSTRIES | Transmission Line Towers & Hot-Dip Galvanizing</title>
     
-    <!-- BMW-STYLE PRECISION TYPOGRAPHY -->
+    <!-- PREMIUM INDUSTRIAL FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <!-- FONT AWESOME ICONS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -34,286 +34,271 @@
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         
         :root {
-            /* BRAND IDENTITY */
-            --primary: #0B1F33;       /* Deep Engineering Navy */
-            --primary-light: #163A59;
-            --accent: #1E88E5;        /* Signature Electric Blue */
-            --accent-hover: #1565C0;
-            --accent-light: #5AA9E6;
-            
-            /* BACKGROUNDS & SURFACES */
-            --background: #F5F7FA;    /* Premium Light Slate Grey */
-            --surface: #FFFFFF;
-            --surface-alt: #EEF2F6;
-
-            /* TYPOGRAPHY */
-            --text: #17212B;
-            --text-muted: #64748B;
-
-            /* UTILITIES & BORDERS */
-            --border: #DCE3EA;
-            --success: #168A5B;
-            --warning: #C88719;
-            --danger: #C83A3A;
-
-            /* FONTS */
-            --font-heading: 'Manrope', sans-serif;
-            --font-body: 'Inter', sans-serif;
+            --primary-navy: #0f172a;
+            --accent-gold: #f59e0b;
+            --accent-gold-dark: #d97706;
+            --accent-teal: #0d9488;
+            --accent-blue: #2563eb;
+            --accent-purple: #7c3aed;
+            --accent-rust: #ea580c;
+            --whatsapp-green: #25d366;
+            --bg-light: #f8fafc;
+            --bg-alt: #f1f5f9;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'Roboto Mono', monospace;
         }
 
         body { 
-            background-color: var(--background); 
-            color: var(--text); 
+            background-color: var(--bg-light); 
+            color: #1e293b; 
             font-family: var(--font-body); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4, h5, .brand-text h1 { 
-            font-family: var(--font-heading); 
-            color: var(--primary);
-            letter-spacing: -0.03em;
+            position: relative;
         }
 
-        .metric, .counter-item h3 {
+        /* FULL DYNAMIC 3D BACKGROUND CANVAS */
+        #global-3d-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        h1, h2, h3, h4, h5, .btn-quote, .btn-prod-quote, .brand-text h1, .btn-nav-action { 
+            font-family: var(--font-heading); 
+        }
+
+        .metric, .order-id, .production-number, .counter-item h3 {
             font-family: var(--font-mono);
         }
 
         a { color: inherit; text-decoration: none; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 3; }
 
-        .section-padding { padding: 90px 0; position: relative; z-index: 2; }
-        .section-title { 
-            text-align: center; 
-            font-size: 32px; 
-            font-weight: 800; 
-            color: var(--primary); 
-            margin-bottom: 10px; 
-            text-transform: uppercase; 
-            letter-spacing: -0.02em; 
-        }
-        .section-subtitle { 
-            text-align: center; 
-            color: var(--text-muted); 
-            font-size: 15.5px; 
-            font-weight: 500;
-            margin-bottom: 50px; 
-            max-width: 680px; 
-            margin-left: auto; 
-            margin-right: auto; 
-        }
+        .section-padding { padding: 90px 0; position: relative; z-index: 3; }
 
         /* --- HEADER & NAVIGATION --- */
         header { 
-            background: rgba(255, 255, 255, 0.96); 
-            backdrop-filter: blur(12px);
+            background: #ffffff; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            box-shadow: 0 2px 15px rgba(11, 31, 51, 0.04); 
-            border-bottom: 1px solid var(--border); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            border-bottom: 3px solid var(--accent-gold); 
         }
         .nav-container { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 14px 24px; 
+            padding: 12px 20px; 
             max-width: 1280px; 
             margin: 0 auto; 
         }
         .brand-logo { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 46px; width: auto; object-fit: contain; }
-        .brand-text h1 { font-size: 18px; font-weight: 800; color: var(--primary); line-height: 1.1; }
-        .brand-text p { font-size: 9px; font-weight: 700; color: var(--accent); letter-spacing: 1.5px; }
+        .logo-img { height: 50px; width: auto; object-fit: contain; }
+        .brand-text h1 { font-size: 19px; font-weight: 900; color: var(--primary-navy); line-height: 1.1; letter-spacing: -0.3px; }
+        .brand-text p { font-size: 9.5px; font-weight: 700; color: var(--accent-gold-dark); letter-spacing: 1px; }
 
-        nav ul { display: flex; list-style: none; gap: 24px; align-items: center; }
-        nav ul li a.nav-link { font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; transition: color 0.2s; letter-spacing: 0.5px; }
-        nav ul li a.nav-link:hover { color: var(--accent); }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul li a.nav-link { font-size: 12.5px; font-weight: 800; color: var(--primary-navy); text-transform: uppercase; transition: color 0.2s; letter-spacing: 0.5px; }
+        nav ul li a.nav-link:hover { color: var(--accent-gold-dark); }
 
         .header-actions { display: flex; align-items: center; gap: 10px; }
-        .btn-primary { 
-            background: var(--accent); 
-            color: #ffffff !important; 
-            padding: 11px 22px; 
-            border-radius: 7px; 
-            font-size: 12.5px; 
-            font-weight: 700; 
+        .btn-nav-action { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: var(--primary-navy); 
+            color: #fbbf24 !important; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-weight: 800; 
             text-transform: uppercase;
             white-space: nowrap; 
-            transition: all 0.25s ease;
-            border: none;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.25);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
         }
-        .btn-primary:hover { 
-            background: var(--accent-hover); 
+        .btn-nav-action:hover { 
+            background: var(--accent-gold-dark); 
+            color: #ffffff !important;
             transform: translateY(-2px); 
-            box-shadow: 0 6px 16px rgba(30, 136, 229, 0.35); 
+            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.4); 
         }
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary) !important;
-            border: 1px solid var(--border);
-            padding: 10px 18px;
-            border-radius: 7px;
-            font-size: 12.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            transition: all 0.25s ease;
-        }
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            background: var(--surface-alt);
-        }
-        .btn-admin {
-            font-size: 11px;
-            color: var(--text-muted);
-            padding: 6px 10px;
-            border-radius: 5px;
-            font-weight: 600;
-        }
-        .btn-admin:hover { color: var(--primary); }
 
         /* --- HERO SECTION --- */
         .hero { 
             position: relative; 
-            background: #ffffff;
-            color: var(--primary); 
-            padding: 95px 0 80px; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+            color: #ffffff; 
+            padding: 90px 0 70px; 
             min-height: 580px;
             display: flex;
             align-items: center;
             overflow: hidden;
-            border-bottom: 1px solid var(--border);
+            z-index: 3;
         }
 
         #hero-3d-canvas {
             position: absolute;
             top: 0;
-            right: -5%;
-            width: 55%;
+            right: 0;
+            width: 50%;
             height: 100%;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
-            opacity: 0.85;
         }
 
         .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
-        .hero-badge { 
-            background: #Ebf5ff; 
-            color: var(--accent); 
-            border: 1px solid #Bee3f8; 
-            padding: 6px 16px; 
-            border-radius: 20px; 
-            font-size: 12px; 
-            font-weight: 700; 
-            display: inline-block; 
-            margin-bottom: 18px; 
-            letter-spacing: 0.5px; 
-        }
-        .hero h2 { font-size: 46px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; color: var(--primary); }
-        .hero h2 span { color: var(--accent); }
-        .hero p { color: var(--text-muted); font-size: 16.5px; font-weight: 400; margin-bottom: 32px; max-width: 540px; line-height: 1.6; }
+        .hero-badge { background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid #f59e0b; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 15px; letter-spacing: 0.5px; }
+        .hero h2 { font-size: 42px; font-weight: 900; line-height: 1.12; margin-bottom: 18px; letter-spacing: -0.8px; text-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .hero h2 span { color: #38bdf8; }
+        .hero p { color: #e2e8f0; font-size: 16px; font-weight: 500; margin-bottom: 30px; max-width: 540px; line-height: 1.7; }
 
         .hero-action-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 25px; }
+        .btn-quote { 
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+            color: #0f172a; 
+            padding: 14px 28px; 
+            border-radius: 8px; 
+            font-weight: 800; 
+            font-size: 14.5px; 
+            letter-spacing: 0.3px; 
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); 
+            transition: all 0.3s ease; 
+        }
+        .btn-quote:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6); }
+        .btn-pdf { 
+            background: rgba(255,255,255,0.1); 
+            color: #ffffff; 
+            border: 2px solid #f59e0b; 
+            padding: 12px 22px; 
+            border-radius: 8px; 
+            font-weight: 700; 
+            font-size: 14px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: all 0.3s ease; 
+        }
+        .btn-pdf:hover { background: rgba(245,158,11,0.25); transform: translateY(-3px); }
 
         .hero-card-magnetic {
-            background: var(--surface); 
-            color: var(--primary); 
-            padding: 30px; 
+            background: #ffffff; 
+            color: #0f172a; 
+            padding: 28px; 
             border-radius: 14px; 
-            border: 1px solid var(--border);
-            border-top: 4px solid var(--accent); 
-            box-shadow: 0 12px 30px rgba(11, 31, 51, 0.06); 
+            border-top: 5px solid var(--accent-gold); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
             transition: transform 0.2s ease-out;
             transform-style: preserve-3d;
         }
 
-        /* --- TRUST & STATS BAR --- */
-        .counter-bar { background: var(--surface-alt); padding: 35px 0; border-bottom: 1px solid var(--border); }
+        /* --- COUNTERS BAR --- */
+        .counter-bar { background: #ffffff; padding: 35px 0; border-bottom: 3px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.04); position: relative; z-index: 3; }
         .counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .counter-item h3 { font-size: 38px; color: var(--primary); font-weight: 800; }
-        .counter-item p { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px; letter-spacing: 0.5px; }
+        .counter-item h3 { font-size: 38px; color: var(--accent-gold-dark); font-weight: 800; }
+        .counter-item p { font-size: 12px; color: #475569; text-transform: uppercase; font-weight: 800; margin-top: 4px; letter-spacing: 0.5px; }
 
         /* --- PRODUCTION PIPELINE --- */
-        .pipeline-section { background: var(--background); padding: 80px 0; border-bottom: 1px solid var(--border); }
-        .pipeline-grid { display: flex; justify-content: space-between; align-items: center; position: relative; margin-top: 45px; flex-wrap: wrap; gap: 15px; }
-        .pipeline-track { position: absolute; top: 35px; left: 5%; right: 5%; height: 3px; background: #DCE3EA; z-index: 1; }
-        .pipeline-progress { position: absolute; top: 35px; left: 5%; width: 65%; height: 3px; background: var(--accent); z-index: 1; }
+        .pipeline-section { background: rgba(241, 245, 249, 0.88); padding: 70px 0; border-top: 3px solid #cbd5e1; position: relative; z-index: 3; }
+        .pipeline-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .pipeline-subtitle { text-align: center; color: #0284c7; font-size: 15px; font-weight: 800; margin-bottom: 45px; }
+
+        .pipeline-grid { display: flex; justify-content: space-between; align-items: center; position: relative; margin-top: 40px; flex-wrap: wrap; gap: 15px; }
+        .pipeline-track { position: absolute; top: 35px; left: 5%; right: 5%; height: 4px; background: #cbd5e1; z-index: 1; }
+        .pipeline-progress { position: absolute; top: 35px; left: 5%; width: 65%; height: 4px; background: linear-gradient(90deg, #d97706, #0284c7); z-index: 1; box-shadow: 0 0 10px rgba(2, 132, 199, 0.4); }
         
         .pipeline-node { position: relative; z-index: 2; text-align: center; width: 14%; min-width: 110px; }
-        .node-circle { width: 70px; height: 70px; background: #ffffff; border: 2px solid #C4D1DB; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px; color: var(--text-muted); transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .node-circle.active { border-color: var(--accent); color: var(--accent); background: #ffffff; box-shadow: 0 0 15px rgba(30, 136, 229, 0.2); transform: scale(1.08); }
-        .node-circle.glowing { border-color: var(--primary); color: var(--primary); background: #ffffff; box-shadow: 0 0 18px rgba(11, 31, 51, 0.25); transform: scale(1.08); }
-        .node-title { font-size: 11.5px; font-weight: 700; text-transform: uppercase; font-family: var(--font-heading); color: var(--primary); letter-spacing: 0.5px; }
+        .node-circle { width: 70px; height: 70px; background: #ffffff; border: 3px solid #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px; color: #64748b; transition: all 0.4s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .node-circle.active { border-color: var(--accent-gold-dark); color: var(--accent-gold-dark); background: #ffffff; box-shadow: 0 0 18px rgba(217, 119, 6, 0.4); transform: scale(1.1); }
+        .node-circle.glowing { border-color: #0284c7; color: #0284c7; background: #ffffff; box-shadow: 0 0 20px rgba(2, 132, 199, 0.6); transform: scale(1.1); }
+        .node-title { font-size: 11.5px; font-weight: 800; text-transform: uppercase; font-family: var(--font-heading); color: var(--primary-navy); letter-spacing: 0.5px; }
 
-        /* --- SECTION 1: WHY CHOOSE MAA SAI --- */
-        .why-section { background: #ffffff; border-bottom: 1px solid var(--border); }
-        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        /* --- SECTION 1: WHY CHOOSE MAA SAI (EMERALD TEAL ACCENT) --- */
+        .why-section { background: rgba(255, 255, 255, 0.92); border-top: 3px solid #0d9488; }
+        .why-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f766e; margin-bottom: 8px; text-transform: uppercase; }
+        .why-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; perspective: 1000px; }
         .why-card { 
             background: #ffffff;
-            border: 1px solid var(--border); 
+            border: 1.5px solid #99f6e4; 
+            border-left: 6px solid #0d9488;
             border-radius: 12px; 
-            padding: 28px; 
-            box-shadow: 0 4px 12px rgba(11, 31, 51, 0.02); 
+            padding: 26px; 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06); 
             display: flex; 
-            gap: 20px; 
+            gap: 18px; 
             align-items: flex-start; 
-            transition: all 0.3s ease; 
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease; 
             cursor: pointer;
+            transform-style: preserve-3d;
         }
         .why-card:hover { 
-            transform: translateY(-5px);
-            border-color: var(--accent); 
-            box-shadow: 0 14px 30px rgba(11, 31, 51, 0.08);
+            border-color: #0d9488; 
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.25);
         }
         .why-icon { 
-            width: 52px; 
-            height: 52px; 
-            background: #EBF5FF; 
-            color: var(--accent); 
+            width: 54px; 
+            height: 54px; 
+            background: #0d9488; 
+            color: #ffffff; 
             border-radius: 10px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 22px; 
+            font-size: 24px; 
             flex-shrink: 0; 
         }
-        .why-content h4 { color: var(--primary); font-size: 17px; margin-bottom: 6px; font-weight: 700; }
-        .why-content p { color: var(--text-muted); font-size: 14px; font-weight: 400; line-height: 1.6; }
+        .why-content h4 { color: #0f172a; font-size: 18px; margin-bottom: 6px; font-weight: 800; }
+        .why-content p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
 
-        /* --- SECTION 2: PRODUCTS PORTFOLIO --- */
-        .products-section { background: var(--background); border-bottom: 1px solid var(--border); }
+        /* --- SECTION 2: PRODUCTS PORTFOLIO (STEEL BLUE INDIGO ACCENT) --- */
+        .products-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #2563eb; }
+        .products-title { text-align: center; font-size: 32px; font-weight: 900; color: #1e40af; margin-bottom: 8px; text-transform: uppercase; }
+        .products-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+
         .products-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 30px; 
+            perspective: 1000px;
         }
         .product-card { 
             background: #ffffff;
-            border: 1px solid var(--border); 
+            border: 1.5px solid #bfdbfe; 
+            border-top: 6px solid #2563eb; 
             border-radius: 14px; 
             overflow: hidden; 
-            box-shadow: 0 6px 18px rgba(11, 31, 51, 0.03); 
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
         
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 36px rgba(11, 31, 51, 0.09);
-            border-color: var(--accent);
+            box-shadow: 0 18px 35px rgba(37, 99, 235, 0.25);
+            border-color: #2563eb;
         }
 
         .product-img-wrapper {
             position: relative;
             overflow: hidden;
             height: 240px;
-            background-color: var(--surface-alt);
+            background-color: #f1f5f9;
         }
         .product-img { 
             width: 100%; 
@@ -322,114 +307,168 @@
             transition: transform 0.5s ease;
         }
         .product-card:hover .product-img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
         .product-badge-tag {
             position: absolute;
             top: 14px;
             left: 14px;
-            background: rgba(11, 31, 51, 0.88);
+            background: #1e3a8a;
             color: #ffffff;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 10.5px;
-            font-weight: 700;
+            font-size: 11px;
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            backdrop-filter: blur(4px);
+            border: 1px solid #60a5fa;
             font-family: var(--font-heading);
             z-index: 2;
         }
         .product-content { 
-            padding: 26px; 
+            padding: 24px; 
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .product-card h3 { 
-            color: var(--primary); 
-            font-size: 18px; 
-            font-weight: 700;
+            color: #0f172a; 
+            font-size: 19px; 
+            font-weight: 800;
             margin-bottom: 10px; 
             line-height: 1.3;
         }
         .product-card p { 
-            color: var(--text-muted); 
+            color: #334155; 
             font-size: 14px; 
+            font-weight: 600;
             margin-bottom: 20px; 
             line-height: 1.6;
         }
         .product-actions { 
-            border-top: 1px solid var(--surface-alt); 
+            border-top: 1px solid #e2e8f0; 
             padding-top: 16px; 
             margin-top: auto;
         }
+        .btn-prod-quote { 
+            background: #0f172a; 
+            color: #ffffff; 
+            padding: 11px 22px; 
+            border-radius: 6px; 
+            font-size: 13px; 
+            font-weight: 800; 
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+        .btn-prod-quote:hover {
+            background: #2563eb;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
 
-        /* --- SECTION 3: CERTIFICATES CENTER --- */
-        .certs-section { background: #ffffff; border-bottom: 1px solid var(--border); }
-        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        /* --- SECTION 3: CERTIFICATES CENTER (MINT TEAL ACCENT) --- */
+        .certs-section { background: rgba(255, 255, 255, 0.95); border-top: 3px solid #0d9488; }
+        .certs-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .certs-subtitle { text-align: center; color: #334155; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; perspective: 1000px; }
         .cert-card { 
             background: #ffffff;
-            border: 1px solid var(--border); 
-            border-top: 4px solid var(--primary); 
-            border-radius: 12px; 
+            border: 1.5px solid #ccfbf1; 
+            border-top: 6px solid #0d9488; 
+            border-radius: 14px; 
             padding: 28px; 
             text-align: center; 
-            box-shadow: 0 4px 14px rgba(11, 31, 51, 0.02);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             min-height: 320px;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
         .cert-card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--accent); 
-            box-shadow: 0 14px 28px rgba(11, 31, 51, 0.08); 
+            border-color: #0d9488; 
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.22); 
         }
-        .cert-card i { font-size: 40px; color: var(--primary); margin-bottom: 16px; }
-        .cert-card h4 { font-size: 17px; color: var(--primary); margin-bottom: 8px; font-weight: 700; }
-        .cert-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6; }
+        .cert-card i { font-size: 44px; color: #0d9488; margin-bottom: 14px; }
+        .cert-card h4 { font-size: 18px; color: #0f766e; margin-bottom: 8px; font-weight: 800; }
+        .cert-card p { font-size: 14px; color: #334155; font-weight: 600; margin-bottom: 22px; line-height: 1.6; }
         
-        .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 12px; }
+        .btn-download-cert { 
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #0f766e; 
+            color: #ffffff !important; 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            font-weight: 800; 
+            font-size: 13px; 
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+            width: 100%;
+            margin-top: auto;
+        }
+        .btn-download-cert:hover { 
+            background: #0d9488; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+        }
+        .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px; }
 
-        /* --- SECTION 4: MAP LOCATIONS --- */
-        .maps-section { background: var(--background); border-bottom: 1px solid var(--border); }
-        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        /* --- SECTION 4: MAP LOCATIONS (RUST COPPER ACCENT) --- */
+        .maps-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #ea580c; }
+        .maps-title { text-align: center; font-size: 32px; font-weight: 900; color: #9a3412; margin-bottom: 8px; text-transform: uppercase; }
+        .maps-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+
+        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; perspective: 1000px; }
         .map-card { 
             background: #ffffff;
-            border: 1px solid var(--border); 
+            border: 1.5px solid #fed7aa; 
             border-radius: 14px; 
             overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(11, 31, 51, 0.03); 
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05); 
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
         }
         .map-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 12px 25px rgba(11, 31, 51, 0.08);
+            border-color: #ea580c;
+            box-shadow: 0 15px 30px rgba(234, 88, 12, 0.2);
         }
         .map-card iframe { width: 100%; height: 260px; border: none; }
         .map-info { padding: 22px; }
-        .map-info h4 { color: var(--primary); font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+        .map-info h4 { color: #9a3412; font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+        .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: #ea580c; color: #ffffff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); transition: all 0.3s ease; }
+        .btn-nav-map:hover { background: #c2410c; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3); }
 
-        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS --- */
+        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (WARM AMBER GOLD ACCENT) --- */
         .clients-section {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 90px 20px;
             position: relative;
-            border-bottom: 1px solid var(--border);
+            border-top: 3px solid #d97706;
+            z-index: 3;
         }
 
+        .clients-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .clients-subtitle { text-align: center; color: #475569; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+
         .section-badge {
-            background: var(--surface-alt);
-            color: var(--primary);
-            border: 1px solid var(--border);
+            background: #fffbeb;
+            color: #d97706;
+            border: 1px solid #fde68a;
             padding: 6px 18px;
             border-radius: 50px;
-            font-size: 11.5px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
             display: inline-block;
             margin-bottom: 16px;
         }
@@ -438,37 +477,40 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
+            perspective: 1000px;
         }
 
         .client-card {
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-            border-radius: 10px;
+            background: #fffbeb;
+            border: 1.5px solid #fde68a;
+            border-left: 6px solid #d97706;
+            border-radius: 12px;
             padding: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transform-style: preserve-3d;
         }
 
         .client-card:hover {
             background: #ffffff;
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(11, 31, 51, 0.06);
+            border-color: #d97706;
+            box-shadow: 0 12px 28px rgba(217, 119, 6, 0.2);
         }
 
         .card-content {
             display: flex;
             align-items: center;
             gap: 12px;
+            transform: translateZ(20px);
         }
 
         .badge-icon {
             width: 26px;
             height: 26px;
-            background: var(--primary);
+            background: #d97706;
             color: #ffffff;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 900;
             border-radius: 50%;
             display: flex;
@@ -478,9 +520,9 @@
         }
 
         .client-name {
-            color: var(--primary);
-            font-size: 12.5px;
-            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
@@ -498,46 +540,63 @@
         }
 
         /* --- CONTACT FORM --- */
-        .contact-section { background: var(--background); }
+        .contact-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #0f172a; }
         .contact-container { 
             display: grid; 
             grid-template-columns: 1fr 1.2fr; 
             gap: 40px; 
-            background: var(--primary);
+            background: #0f172a;
             color: #ffffff; 
-            padding: 48px; 
+            padding: 45px; 
             border-radius: 16px; 
-            box-shadow: 0 15px 35px rgba(11, 31, 51, 0.15); 
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.25); 
         }
-        .info-box h4 { font-size: 12px; color: var(--accent-light); text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 1px; margin-bottom: 4px; }
+        .info-box h4 { font-size: 12px; color: #f59e0b; text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 1px; margin-bottom: 4px; }
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; color: #cbd5e1; font-family: var(--font-heading); }
         .form-group input, .form-group select, .form-group textarea { 
             width: 100%; 
             padding: 13px; 
-            background: #162B45; 
-            border: 1px solid #284463; 
+            background: #1e293b; 
+            border: 1px solid #334155; 
             color: #ffffff; 
             border-radius: 8px; 
             font-size: 13.5px; 
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
+            border-color: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        }
+        .btn-submit-main { 
+            width: 100%; 
+            padding: 15px; 
+            background: #f59e0b; 
+            color: #0f172a; 
+            border: none; 
+            font-weight: 800; 
+            font-size: 15px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-family: var(--font-heading); 
+            transition: all 0.3s ease; 
+        }
+        .btn-submit-main:hover { 
+            background: #d97706;
+            transform: translateY(-2px);
         }
 
         /* --- FLOATING ACTION BUTTONS --- */
         .floating-actions { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
-        .float-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; box-shadow: 0 6px 16px rgba(0,0,0,0.15); transition: transform 0.2s; }
-        .float-btn:hover { transform: scale(1.1); }
+        .float-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; box-shadow: 0 6px 16px rgba(0,0,0,0.2); transition: transform 0.2s; }
+        .float-btn:hover { transform: scale(1.12); }
         .float-wa { background: var(--whatsapp-green); }
-        .float-call { background: var(--accent); color: #ffffff; }
+        .float-call { background: var(--accent-gold); color: var(--primary-navy); }
 
         /* --- FOOTER --- */
-        footer { background: #071424; color: #8C9BAE; padding: 60px 0 30px; font-size: 13px; border-top: 1px solid var(--primary-light); }
+        footer { background: #0f172a; color: #94a3b8; padding: 60px 0 30px; font-size: 13px; border-top: 3px solid var(--accent-gold); position: relative; z-index: 3; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 40px; text-align: left; }
-        .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--accent); padding-bottom: 6px; display: inline-block; font-family: var(--font-heading); letter-spacing: 0.5px; }
+        .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--accent-gold); padding-bottom: 6px; display: inline-block; font-family: var(--font-heading); letter-spacing: 0.5px; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 8px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; text-align: center; font-size: 12px; }
@@ -550,6 +609,9 @@
     </style>
 </head>
 <body>
+
+    <!-- GLOBAL FIXED 3D GEOMETRIC MESH BACKGROUND -->
+    <canvas id="global-3d-bg"></canvas>
 
     <!-- NAVBAR -->
     <header>
@@ -564,42 +626,39 @@
             <nav>
                 <ul>
                     <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#why-us" class="nav-link">Capabilities</a></li>
+                    <li><a href="#why-us" class="nav-link">Why Us</a></li>
                     <li><a href="#products" class="nav-link">Products</a></li>
                     <li><a href="#pipeline" class="nav-link">Production</a></li>
-                    <li><a href="#certs" class="nav-link">Certifications</a></li>
+                    <li><a href="#certs" class="nav-link">Certificates</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
-                <a href="/track" class="btn-secondary"><i class="fa-solid fa-location-dot"></i> Track Order</a>
-                <a href="#contact" class="btn-primary">Request Quote ➔</a>
-                <a href="/login.html" class="btn-admin" title="Admin Management Portal"><i class="fa-solid fa-lock"></i></a>
+                <a href="/track" class="btn-nav-action"><i class="fa-solid fa-location-dot"></i> Track Order</a>
+                <a href="/login.html" class="btn-nav-action"><i class="fa-solid fa-lock"></i> Admin Login</a>
             </div>
         </div>
     </header>
 
-    <!-- RESTRAINED 3D HERO SECTION -->
+    <!-- 3D INTERACTIVE HERO SECTION -->
     <section class="hero" id="about">
-        <!-- Subtle Thin Wireframe CAD Canvas -->
         <div id="hero-3d-canvas"></div>
-
         <div class="container hero-grid">
             <div>
                 <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> INDIAMART TRUSTSEAL VERIFIED SUPPLIER</span>
                 <h2>POWERING INDIA'S <span>INFRASTRUCTURE</span></h2>
-                <p>Manufacturing high-capacity lattice transmission towers up to 220kV, substation gantries, and heavy structural steel with integrated hot-dip galvanizing.</p>
+                <p>Manufacturing lattice transmission towers up to 220kV, sub-station gantries, cable trays, and heavy chemical plant steel structures with in-house hot-dip galvanizing facilities.</p>
 
                 <div class="hero-action-btns">
-                    <a href="#contact" class="btn-primary">Request a Quote ➔</a>
-                    <a href="/track" class="btn-secondary"><i class="fa-solid fa-location-dot"></i> Track Your Order</a>
+                    <a href="#contact" class="btn-quote">Get Instant Quote ➔</a>
+                    <a href="https://www.maasaimetal.com/" target="_blank" class="btn-pdf"><i class="fa-solid fa-store"></i> IndiaMART Catalog &rarr;</a>
                 </div>
             </div>
 
             <div class="hero-card-magnetic">
-                <h3 style="color: var(--primary); font-size: 18px; font-weight: 800; margin-bottom: 12px; border-bottom: 2px solid var(--surface-alt); padding-bottom: 8px;">Enterprise Credentials</h3>
-                <ul style="list-style: none; font-size: 13.5px; line-height: 2.1; color: var(--text);">
-                    <li><strong>IndiaMART Status:</strong> <span style="color: var(--success); font-weight:700;"><i class="fa-solid fa-circle-check"></i> TrustSEAL Verified (2+ Yrs)</span></li>
+                <h3 style="color: var(--primary-navy); font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px;">Enterprise Credentials</h3>
+                <ul style="list-style: none; font-size: 13.5px; line-height: 2;">
+                    <li><strong>IndiaMART Status:</strong> <span style="color:#166534; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> TrustSEAL Verified (2+ Yrs)</span></li>
                     <li><strong>ISO Standard:</strong> ISO 9001:2015 QMS Certified</li>
                     <li><strong>UDYAM Reg:</strong> UDYAM-TS-25-0000357</li>
                     <li><strong>GSTIN:</strong> 36AOGPA8741L1ZQ</li>
@@ -609,12 +668,12 @@
         </div>
     </section>
 
-    <!-- TRUST & STATS BAR -->
+    <!-- COUNTERS BAR -->
     <div class="counter-bar">
         <div class="container counter-grid">
-            <div class="counter-item"><h3 class="count-num" data-val="4.0">0</h3><p>IndiaMART Rating</p></div>
+            <div class="counter-item"><h3 class="count-num" data-val="4.0">0</h3><p>IndiaMART Trust Rating</p></div>
             <div class="counter-item"><h3 class="count-num" data-val="220">0</h3><p>Tower Capacity (kV)</p></div>
-            <div class="counter-item"><h3 class="count-num" data-val="40">0</h3><p>Daily Tonnage (MT)</p></div>
+            <div class="counter-item"><h3 class="count-num" data-val="40">0</h3><p>Daily Output (MT)</p></div>
             <div class="counter-item"><h3>ISO 9001</h3><p>QMS Certified</p></div>
         </div>
     </div>
@@ -622,8 +681,8 @@
     <!-- Live PRODUCTION PIPELINE -->
     <section class="pipeline-section" id="pipeline">
         <div class="container">
-            <h2 class="pipeline-title">Live Production Workflow</h2>
-            <p class="pipeline-subtitle">Automated lifecycle tracking from raw structural angle steel to hot-dip galvanizing & dispatch.</p>
+            <h2 class="pipeline-title">Live Production Pipeline</h2>
+            <p class="pipeline-subtitle">Real-time workflow lifecycle from raw angle steel to hot-dip galvanizing & dispatch.</p>
 
             <div class="pipeline-grid">
                 <div class="pipeline-track"></div>
@@ -631,7 +690,7 @@
 
                 <div class="pipeline-node">
                     <div class="node-circle active"><i class="fa-solid fa-boxes-stacked"></i></div>
-                    <div class="node-title">1. Raw Steel</div>
+                    <div class="node-title">1. Raw Material</div>
                 </div>
                 <div class="pipeline-node">
                     <div class="node-circle active"><i class="fa-solid fa-gears"></i></div>
@@ -657,70 +716,70 @@
         </div>
     </section>
 
-    <!-- SECTION 1: CAPABILITIES -->
+    <!-- SECTION 1: WHY CHOOSE MAA SAI (EMERALD TEAL HARMONY) -->
     <section class="section-padding why-section" id="why-us">
         <div class="container">
-            <h2 class="section-title">Manufacturing Capabilities</h2>
-            <p class="section-subtitle">Integrated precision steel fabrication, heavy machining, and hot-dip zinc galvanizing under one roof.</p>
+            <h2 class="why-title">Why Choose Maa Sai Metal</h2>
+            <p class="why-subtitle">Integrated steel manufacturing, precision machining, and hot-dip galvanizing under one roof.</p>
 
             <div class="why-grid">
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-industry"></i></div>
                     <div class="why-content">
-                        <h4>40 MT / Day Production Capacity</h4>
-                        <p>High-speed automated shearing, hydraulic punching, and drilling setups engineered for large-scale EPC orders.</p>
+                        <h4>40 MT/Day Capacity</h4>
+                        <p>High-volume production lines with automated shearing, punching, and drilling setups.</p>
                     </div>
                 </div>
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
                     <div class="why-content">
-                        <h4>In-House Hot-Dip Galvanizing</h4>
-                        <p>10M deep zinc kettle bath ensuring IS 2629 & IS 4759 compliant multi-stage corrosion protection.</p>
+                        <h4>In-House Galvanizing</h4>
+                        <p>10M zinc melting bath ensuring IS 2629 & IS 4759 standard hot-dip galvanizing protection.</p>
                     </div>
                 </div>
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
                     <div class="why-content">
-                        <h4>220 kV Line Tower Expertise</h4>
-                        <p>Precision fabrication of heavy lattice transmission towers and substation gantries for state power boards.</p>
+                        <h4>220 kV Expertise</h4>
+                        <p>Fabrication of heavy lattice transmission towers and sub-station gantries for state power boards.</p>
                     </div>
                 </div>
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-user-gear"></i></div>
                     <div class="why-content">
-                        <h4>Strict Quality Assurance</h4>
-                        <p>Dedicated NDT and QA inspectors monitoring dimensional tolerance, hole alignment, and zinc coating thickness.</p>
+                        <h4>40+ Skilled Engineers</h4>
+                        <p>Expert quality control inspectors ensuring strict dimensional accuracy and zinc coating thickness.</p>
                     </div>
                 </div>
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-truck-fast"></i></div>
                     <div class="why-content">
-                        <h4>Dedicated Logistics Fleet</h4>
-                        <p>In-house fleet featuring heavy trailers and hydra cranes ensuring fast, secure site dispatches.</p>
+                        <h4>On-Time Delivery</h4>
+                        <p>Dedicated logistics fleet featuring Bharat Benz heavy trailers and hydra cranes.</p>
                     </div>
                 </div>
                 <div class="why-card">
                     <div class="why-icon"><i class="fa-solid fa-certificate"></i></div>
                     <div class="why-content">
-                        <h4>Verified Industrial Supplier</h4>
-                        <p>IndiaMART TrustSEAL Verified Supplier and ISO 9001:2015 Certified Quality Management System.</p>
+                        <h4>Verified Supplier</h4>
+                        <p>IndiaMART TrustSEAL Verified Supplier and ISO 9001:2015 Certified Quality Management.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 2: PRODUCTS PORTFOLIO -->
+    <!-- SECTION 2: PRODUCTS PORTFOLIO (STEEL BLUE INDIGO HARMONY) -->
     <section class="section-padding products-section" id="products">
         <div class="container">
-            <h2 class="section-title">Product Portfolio</h2>
-            <p class="section-subtitle">Heavy steel transmission structures fabricated at Unit-1 (Kazipally) and hot-dip galvanized at Unit-2 (Gaddapotharam).</p>
+            <h2 class="products-title">Product Portfolio & Capabilities</h2>
+            <p class="products-subtitle">Heavy steel transmission structures fabricated at Unit-1 (Kazipally) and hot-dip galvanized at Unit-2 (Gaddapotharam).</p>
 
             <div class="products-grid">
                 <!-- Product 1 -->
                 <div class="product-card">
                     <div class="product-img-wrapper">
-                        <span class="product-badge-tag"><i class="fa-solid fa-bolt"></i> Up to 220 kV</span>
+                        <span class="product-badge-tag"><i class="fa-solid fa-bolt"></i> Heavy Lattice</span>
                         <img src="/transmission_tower.jpg" alt="1. Transmission Line Towers" class="product-img" onerror="this.src='/tower1.jpeg'">
                     </div>
                     <div class="product-content">
@@ -728,7 +787,7 @@
                             <h3>1. Transmission Line Towers</h3>
                             <p>Heavy lattice steel towers engineered and fabricated up to 220kV capacity for high-voltage power transmission lines and EPC grid projects.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
 
@@ -740,10 +799,10 @@
                     </div>
                     <div class="product-content">
                         <div>
-                            <h3>2. M Type Transmission Tower</h3>
+                            <h3>2. m type transmission tower</h3>
                             <p>Precision-fabricated 'M' type lattice tower structures designed for electric power distribution networks and substation gantries.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
 
@@ -755,10 +814,10 @@
                     </div>
                     <div class="product-content">
                         <div>
-                            <h3>3. 33 kV Electrical Tower</h3>
+                            <h3>3. 33 kv electrical tower</h3>
                             <p>Hot-dip galvanized 33kV electrical transmission line structures manufactured to withstand extreme environmental stress and corrosion.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
 
@@ -770,25 +829,25 @@
                     </div>
                     <div class="product-content">
                         <div>
-                            <h3>4. Heavy Duty M Type Tower</h3>
+                            <h3>4. M Type Tower</h3>
                             <p>Heavy-duty M Type steel lattice towers fabricated for high-capacity overhead power transmission lines.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
 
                 <!-- Product 5 -->
                 <div class="product-card">
                     <div class="product-img-wrapper">
-                        <span class="product-badge-tag"><i class="fa-solid fa-code-branch"></i> Modular</span>
+                        <span class="product-badge-tag"><i class="fa-solid fa-code-branch"></i> Modular Extension</span>
                         <img src="/tower3_2.jpeg" alt="5. M Type Towers M+3, M+6, M+9 And M+12 33 kv /11 kv" class="product-img" onerror="this.src='/tower5.jpeg'">
                     </div>
                     <div class="product-content">
                         <div>
-                            <h3>5. Modular Body Extensions (M+3 to M+12)</h3>
+                            <h3>5. M Type Towers M+3, M+6, M+9 & M+12 (33kV / 11kV)</h3>
                             <p>Standardized modular tower body extension structures engineered for 33kV and 11kV distribution networks.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
 
@@ -800,21 +859,21 @@
                     </div>
                     <div class="product-content">
                         <div>
-                            <h3>6. Mild Steel Transmission Tower</h3>
+                            <h3>6. Mild Steel Transmission Line Tower</h3>
                             <p>IS 2062 grade high-tensile mild steel transmission line towers finished with 80+ micron hot-dip zinc galvanizing.</p>
                         </div>
-                        <div class="product-actions"><a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Request Quote ➔</a></div>
+                        <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: CERTIFICATIONS -->
+    <!-- SECTION 3: CERTIFICATES CENTER (MINT TEAL HARMONY) -->
     <section class="section-padding certs-section" id="certs">
         <div class="container">
-            <h2 class="section-title">Certifications & Credentials</h2>
-            <p class="section-subtitle">Official statutory registrations, ISO compliance, and IndiaMART TrustSEAL credentials.</p>
+            <h2 class="certs-title">Trust Verification & Certification Center</h2>
+            <p class="certs-subtitle">Official IndiaMART TrustSEAL verification, statutory credentials, and ISO compliance certificates.</p>
 
             <div class="certs-grid">
                 <!-- INDIAMART TRUSTSEAL CARD -->
@@ -822,9 +881,9 @@
                     <div>
                         <img src="/indiamart-trustseal.png" alt="IndiaMART TrustSEAL Verified Badge" class="trustseal-badge-img" onerror="this.style.display='none'">
                         <h4>IndiaMART TrustSEAL</h4>
-                        <p><strong>Badge:</strong> Verified Supplier (2+ Yrs)<br><strong>Rating:</strong> 4.0 ★★★★☆<br><strong>Response Rate:</strong> High Priority</p>
+                        <p><strong>Badge:</strong> TrustSEAL Verified (2+ Years)<br><strong>Rating:</strong> 4.0 ★★★★☆ (4 Reviews)<br><strong>Response Rate:</strong> 54%</p>
                     </div>
-                    <a href="https://www.maasaimetal.com/" target="_blank" class="btn-secondary" style="width: 100%;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Profile ➔</a>
+                    <a href="https://www.maasaimetal.com/" target="_blank" class="btn-download-cert"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Profile &rarr;</a>
                 </div>
 
                 <!-- ISO CERTIFICATE CARD -->
@@ -832,9 +891,9 @@
                     <div>
                         <i class="fa-solid fa-award"></i>
                         <h4>ISO 9001:2015 QMS</h4>
-                        <p><strong>Cert No:</strong> QMS-MMXXV-09-15913<br><strong>Issuer:</strong> WRG / AIAO-BAR USA<br><strong>Validity:</strong> Aug 2025 – Aug 2028</p>
+                        <p><strong>Cert No:</strong> QMS-MMXXV-09-15913<br><strong>Issuer:</strong> WRG Certifications / AIAO-BAR USA<br><strong>Validity:</strong> Aug 2025 – Aug 2028</p>
                     </div>
-                    <a href="/ISO_Certificate_Maa_Sai.pdf" target="_blank" class="btn-secondary" style="width: 100%;"><i class="fa-solid fa-file-pdf"></i> View Certificate ➔</a>
+                    <a href="/ISO_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
 
                 <!-- GST REGISTRATION CARD -->
@@ -842,29 +901,29 @@
                     <div>
                         <i class="fa-solid fa-file-invoice-dollar"></i>
                         <h4>GST Registration</h4>
-                        <p><strong>GSTIN:</strong> 36AOGPA8741L1ZQ<br><strong>Legal Name:</strong> GOPI ACHANTA<br><strong>Jurisdiction:</strong> Sangareddy, TS</p>
+                        <p><strong>GSTIN:</strong> 36AOGPA8741L1ZQ<br><strong>Legal Name:</strong> GOPI ACHANTA<br><strong>Jurisdiction:</strong> Sangareddy, Telangana</p>
                     </div>
-                    <a href="/GST_Certificate_Maa_Sai.pdf" target="_blank" class="btn-secondary" style="width: 100%;"><i class="fa-solid fa-file-pdf"></i> View Certificate ➔</a>
+                    <a href="/GST_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
 
                 <!-- UDYAM MSME CARD -->
                 <div class="cert-card">
                     <div>
                         <i class="fa-solid fa-id-card"></i>
-                        <h4>UDYAM Certificate</h4>
-                        <p><strong>Udyam No:</strong> UDYAM-TS-25-0000357<br><strong>Category:</strong> Micro Manufacturing<br><strong>Ministry:</strong> Ministry of MSME</p>
+                        <h4>UDYAM MSME Certificate</h4>
+                        <p><strong>Udyam No:</strong> UDYAM-TS-25-0000357<br><strong>Category:</strong> Micro Manufacturing<br><strong>Ministry:</strong> Ministry of MSME, Govt of India</p>
                     </div>
-                    <a href="/UDYAM_Certificate_Maa_Sai.pdf" target="_blank" class="btn-secondary" style="width: 100%;"><i class="fa-solid fa-file-pdf"></i> View Certificate ➔</a>
+                    <a href="/UDYAM_Certificate_Maa_Sai.pdf" target="_blank" class="btn-download-cert"><i class="fa-solid fa-file-pdf"></i> View Certificate &rarr;</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 4: MAP LOCATIONS -->
+    <!-- SECTION 4: MAP LOCATIONS (COPPER RUST HARMONY) -->
     <section class="section-padding maps-section" id="maps">
         <div class="container">
-            <h2 class="section-title">Plant Locations</h2>
-            <p class="section-subtitle">Integrated manufacturing and galvanizing plants located in Jinnaram Mandal, Sangareddy District.</p>
+            <h2 class="maps-title">Plant Locations & Navigation</h2>
+            <p class="maps-subtitle">Manufacturing & galvanizing plants located in Jinnaram Mandal, Sangareddy District.</p>
 
             <div class="maps-grid">
                 <!-- Unit-1 Map Card -->
@@ -876,8 +935,8 @@
                     </iframe>
                     <div class="map-info">
                         <h4>Unit-1: Fabrication Plant & Office</h4>
-                        <p style="font-size: 13.5px; color: var(--text-muted);">Survey No: 180/7, IDA Kazipally Village, Jinnaram Mandal, Sangareddy - 502319.</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Maa+Sai+Metal+Industries+Kazipally+Sangareddy" target="_blank" class="btn-secondary" style="margin-top: 14px; display: inline-block;">
+                        <p style="font-size: 13px; color: #475569; font-weight:600;">Survey No: 180/7, IDA Kazipally Village, Jinnaram Mandal, Sangareddy - 502319.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Maa+Sai+Metal+Industries+Kazipally+Sangareddy" target="_blank" class="btn-nav-map">
                             <i class="fa-solid fa-location-arrow"></i> Navigate to Unit 1
                         </a>
                     </div>
@@ -892,8 +951,8 @@
                     </iframe>
                     <div class="map-info">
                         <h4>Unit-2: Hot-Dip Galvanizing Plant</h4>
-                        <p style="font-size: 13.5px; color: var(--text-muted);">Survey No: 25/B1 & 26/B1, Gaddapotharam Village, Jinnaram Mandal, Sangareddy - 502319.</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Gaddapotharam+Industrial+Area+Jinnaram+Sangareddy" target="_blank" class="btn-secondary" style="margin-top: 14px; display: inline-block;">
+                        <p style="font-size: 13px; color: #475569; font-weight:600;">Survey No: 25/B1 & 26/B1, Gaddapotharam Village, Jinnaram Mandal, Sangareddy - 502319.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Gaddapotharam+Industrial+Area+Jinnaram+Sangareddy" target="_blank" class="btn-nav-map">
                             <i class="fa-solid fa-location-arrow"></i> Navigate to Unit 2
                         </a>
                     </div>
@@ -902,13 +961,13 @@
         </div>
     </section>
 
-    <!-- SECTION 5: VALUABLE INDUSTRIAL CLIENTS -->
+    <!-- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (WARM AMBER GOLD HARMONY) -->
     <section class="clients-section" id="clients">
         <div class="container">
             <div style="text-align: center; margin-bottom: 40px;">
                 <span class="section-badge">TRUSTED PARTNERSHIPS</span>
-                <h2 class="section-title">VALUABLE INDUSTRIAL CLIENTS</h2>
-                <p class="section-subtitle">
+                <h2 class="clients-title">VALUABLE INDUSTRIAL CLIENTS</h2>
+                <p class="clients-subtitle">
                     Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.
                 </p>
             </div>
@@ -1006,7 +1065,7 @@
         <div class="container">
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3 style="color: #ffffff; font-size: 26px; margin-bottom: 20px;">Contact Sales Desk</h3>
+                    <h3 style="color: #f59e0b; font-size: 24px; margin-bottom: 20px;">Contact Sales Desk</h3>
                     
                     <div class="info-box" style="margin-bottom: 24px;">
                         <h4>Promoter</h4>
@@ -1022,10 +1081,10 @@
                 </div>
 
                 <div>
-                    <h3 style="color: #ffffff; font-size: 26px; margin-bottom: 8px;">Request Quotation</h3>
+                    <h3 style="color: #f59e0b; font-size: 24px; margin-bottom: 10px;">Request Quotation</h3>
                     <p style="color: #cbd5e1; font-size: 13.5px; margin-bottom: 20px;">Enquiries submitted here sync directly into our Maa Sai ERP system.</p>
 
-                    <div id="form-status" style="display:none; padding:12px; border-radius:8px; margin-bottom:15px; font-weight:bold; font-size:13px;"></div>
+                    <div id="form-status" style="display:none; padding:10px; border-radius:6px; margin-bottom:15px; font-weight:bold; font-size:13px;"></div>
 
                     <form id="enquiryForm" onsubmit="handleFormSubmit(event)">
                         <div class="form-group">
@@ -1060,7 +1119,7 @@
                             <textarea id="leadMessage" rows="3" placeholder="Quantity, specs, tonnage..." required></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">Submit Quotation Request ➔</button>
+                        <button type="submit" class="btn-submit-main">Submit Enquiry to ERP ➔</button>
                     </form>
                 </div>
             </div>
@@ -1087,14 +1146,14 @@
                     <ul>
                         <li><a href="#about">Company Profile</a></li>
                         <li><a href="https://www.maasaimetal.com/" target="_blank">IndiaMART Catalog</a></li>
-                        <li><a href="#certs">Certifications</a></li>
-                        <li><a href="/track">Order Tracker</a></li>
-                        <li><a href="/login.html">Admin Portal</a></li>
+                        <li><a href="#certs">Certificates</a></li>
+                        <li><a href="/track">Live Order Tracker</a></li>
+                        <li><a href="/login.html">Admin Login</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-col">
-                    <h4>Statutory Credentials</h4>
+                    <h4>Statutory Details</h4>
                     <ul>
                         <li><strong>IndiaMART:</strong> TrustSEAL Verified</li>
                         <li><strong>ISO QMS:</strong> ISO 9001:2015 Certified</li>
@@ -1117,7 +1176,77 @@
 
     <!-- INTERACTIVE ANIMATION SCRIPTS -->
     <script>
-        // --- RESTRAINED SLOW 3D CAD TOWER ANIMATION ---
+        // --- GLOBAL VISIBLE 3D GEOMETRIC MESH BACKGROUND ---
+        (function initGlobal3D() {
+            const canvas = document.getElementById('global-3d-bg');
+            if(!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Floating Geometric Mesh Structure
+            const group = new THREE.Group();
+            
+            const geometry = new THREE.IcosahedronGeometry(2.5, 1);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0x0284c7,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.35
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            group.add(mesh);
+
+            // Floating Node Particles
+            const particleGeo = new THREE.BufferGeometry();
+            const count = 280;
+            const posArray = new Float32Array(count * 3);
+            for(let i = 0; i < count * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 18;
+            }
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.09,
+                color: 0xd97706,
+                transparent: true,
+                opacity: 0.75
+            });
+
+            const particlesMesh = new THREE.Points(particleGeo, particleMat);
+            group.add(particlesMesh);
+
+            scene.add(group);
+            camera.position.z = 7;
+
+            let mouseX = 0, mouseY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.4;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                group.rotation.y += 0.002;
+                group.rotation.x = mouseY * 0.3;
+                group.rotation.y += mouseX * 0.03;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // --- THREE.JS HERO WIREFRAME TOWER ---
         (function init3DTower() {
             const container = document.getElementById('hero-3d-canvas');
             if(!container) return;
@@ -1127,34 +1256,38 @@
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             
             renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
             scene.add(ambientLight);
 
+            const dirLight = new THREE.DirectionalLight(0xf5ab1d, 2.8);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+
             const towerGroup = new THREE.Group();
-            
-            // Clean CAD Wireframe Material
-            const steelMaterial = new THREE.MeshBasicMaterial({ 
-                color: 0x1E88E5, 
-                wireframe: true,
-                transparent: true,
-                opacity: 0.35
+            const steelMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x38bdf8, 
+                wireframe: true, 
+                metalness: 0.95, 
+                roughness: 0.1 
             });
 
-            // Tower Geometry Construction
+            // Tower Base
             const baseGeo = new THREE.CylinderGeometry(1.2, 2.8, 6, 4);
             const baseMesh = new THREE.Mesh(baseGeo, steelMaterial);
             baseMesh.position.y = -1;
             towerGroup.add(baseMesh);
 
+            // Tower Cage
             const upperGeo = new THREE.CylinderGeometry(0.5, 1.2, 5, 4);
             const upperMesh = new THREE.Mesh(upperGeo, steelMaterial);
             upperMesh.position.y = 4.5;
             towerGroup.add(upperMesh);
 
-            const armGeo = new THREE.BoxGeometry(4.8, 0.2, 0.2);
+            // Cross Arms
+            const armGeo = new THREE.BoxGeometry(4.8, 0.25, 0.25);
             const armMesh1 = new THREE.Mesh(armGeo, steelMaterial);
             armMesh1.position.y = 3.5;
             towerGroup.add(armMesh1);
@@ -1163,6 +1296,7 @@
             armMesh2.position.y = 5.0;
             towerGroup.add(armMesh2);
 
+            // Peak Top
             const peakGeo = new THREE.ConeGeometry(0.5, 2, 4);
             const peakMesh = new THREE.Mesh(peakGeo, steelMaterial);
             peakMesh.position.y = 8;
@@ -1173,16 +1307,20 @@
 
             let mouseX = 0, mouseY = 0;
             window.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.2;
-                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.2;
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.4;
             });
 
+            let clock = new THREE.Clock();
             function animate() {
                 requestAnimationFrame(animate);
-                towerGroup.rotation.y += 0.002; // Very slow elegant rotation
+                const elapsedTime = clock.getElapsedTime();
 
-                towerGroup.rotation.x = mouseY * 0.15;
-                towerGroup.rotation.z = mouseX * 0.15;
+                towerGroup.rotation.y += 0.006;
+                towerGroup.position.y = Math.sin(elapsedTime * 1.2) * 0.2;
+
+                towerGroup.rotation.x = mouseY * 0.25;
+                towerGroup.rotation.z = mouseX * 0.25;
 
                 renderer.render(scene, camera);
             }
@@ -1194,6 +1332,27 @@
                 renderer.setSize(container.clientWidth, container.clientHeight);
             });
         })();
+
+        // --- CURSOR-TRACKING 3D TILT ANIMATION ON CARDS ---
+        document.querySelectorAll('.why-card, .product-card, .cert-card, .map-card, .client-card, .hero-card-magnetic').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `translateY(-6px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
 
         // --- ANIMATED NUMBER COUNTERS (GSAP) ---
         gsap.registerPlugin(ScrollTrigger);
@@ -1236,8 +1395,8 @@
             };
 
             statusDiv.style.display = "block";
-            statusDiv.style.background = "#162B45";
-            statusDiv.style.color = "#5AA9E6";
+            statusDiv.style.background = "#1e293b";
+            statusDiv.style.color = "#f59e0b";
             statusDiv.innerText = "Submitting enquiry to Maa Sai ERP...";
 
             try {
