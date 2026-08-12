@@ -208,6 +208,42 @@
         .counter-item h3 { font-size: 38px; color: var(--accent-gold-dark); font-weight: 800; }
         .counter-item p { font-size: 12px; color: #475569; text-transform: uppercase; font-weight: 800; margin-top: 4px; letter-spacing: 0.5px; }
 
+        /* --- NEW SECTION: INSTANT TONNAGE & ESTIMATE CALCULATOR --- */
+        .calc-section { background: rgba(255, 255, 255, 0.95); border-top: 3px solid #2563eb; }
+        .calc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #ffffff;
+            border: 1.5px solid #dbeafe;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+        }
+        .calc-box h3 { color: #1e40af; font-size: 24px; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
+        .calc-form-group { margin-bottom: 18px; }
+        .calc-form-group label { display: block; font-size: 12px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 6px; }
+        .calc-form-group select, .calc-form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #f8fafc;
+        }
+        .calc-results-card {
+            background: #0f172a;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .calc-metric-row { display: flex; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .calc-metric-value { font-size: 20px; font-weight: 800; color: #fbbf24; font-family: var(--font-mono); }
+
         /* --- PRODUCTION PIPELINE --- */
         .pipeline-section { background: rgba(241, 245, 249, 0.88); padding: 70px 0; border-top: 3px solid #cbd5e1; position: relative; z-index: 3; }
         .pipeline-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
@@ -223,7 +259,7 @@
         .node-circle.glowing { border-color: #0284c7; color: #0284c7; background: #ffffff; box-shadow: 0 0 20px rgba(2, 132, 199, 0.6); transform: scale(1.1); }
         .node-title { font-size: 11.5px; font-weight: 800; text-transform: uppercase; font-family: var(--font-heading); color: var(--primary-navy); letter-spacing: 0.5px; }
 
-        /* --- SECTION 1: WHY CHOOSE MAA SAI (EMERALD TEAL ACCENT) --- */
+        /* --- SECTION 1: WHY CHOOSE MAA SAI --- */
         .why-section { background: rgba(255, 255, 255, 0.92); border-top: 3px solid #0d9488; }
         .why-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f766e; margin-bottom: 8px; text-transform: uppercase; }
         .why-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
@@ -262,7 +298,7 @@
         .why-content h4 { color: #0f172a; font-size: 18px; margin-bottom: 6px; font-weight: 800; }
         .why-content p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
 
-        /* --- SECTION 2: PRODUCTS PORTFOLIO (STEEL BLUE INDIGO ACCENT) --- */
+        /* --- SECTION 2: PRODUCTS PORTFOLIO --- */
         .products-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #2563eb; }
         .products-title { text-align: center; font-size: 32px; font-weight: 900; color: #1e40af; margin-bottom: 8px; text-transform: uppercase; }
         .products-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
@@ -368,7 +404,27 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
         }
 
-        /* --- SECTION 3: CERTIFICATES CENTER (MINT TEAL ACCENT) --- */
+        /* --- NEW SECTION: PLANT INFRASTRUCTURE & GALLERY SHOWCASE --- */
+        .gallery-section { background: rgba(255, 255, 255, 0.95); border-top: 3px solid #ea580c; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; perspective: 1000px; }
+        .gallery-card {
+            background: #ffffff;
+            border: 1.5px solid #fed7aa;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .gallery-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(234, 88, 12, 0.2); }
+        .gallery-img-wrapper { height: 200px; overflow: hidden; position: relative; }
+        .gallery-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-card:hover .gallery-img-wrapper img { transform: scale(1.08); }
+        .gallery-info { padding: 20px; }
+        .gallery-info h4 { color: #9a3412; font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+        .gallery-info p { color: #475569; font-size: 13px; font-weight: 600; }
+
+        /* --- SECTION 3: CERTIFICATES CENTER --- */
         .certs-section { background: rgba(255, 255, 255, 0.95); border-top: 3px solid #0d9488; }
         .certs-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
         .certs-subtitle { text-align: center; color: #334155; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
@@ -423,7 +479,7 @@
         }
         .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px; }
 
-        /* --- SECTION 4: MAP LOCATIONS (RUST COPPER ACCENT) --- */
+        /* --- SECTION 4: MAP LOCATIONS --- */
         .maps-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #ea580c; }
         .maps-title { text-align: center; font-size: 32px; font-weight: 900; color: #9a3412; margin-bottom: 8px; text-transform: uppercase; }
         .maps-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
@@ -448,7 +504,7 @@
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: #ea580c; color: #ffffff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); transition: all 0.3s ease; }
         .btn-nav-map:hover { background: #c2410c; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3); }
 
-        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (WARM AMBER GOLD ACCENT) --- */
+        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS --- */
         .clients-section {
             background: rgba(255, 255, 255, 0.95);
             padding: 90px 20px;
@@ -529,6 +585,7 @@
 
         @media (max-width: 1024px) {
             .clients-grid { grid-template-columns: repeat(3, 1fr); }
+            .calc-container { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -626,9 +683,10 @@
             <nav>
                 <ul>
                     <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#calculator" class="nav-link">Estimator</a></li>
                     <li><a href="#why-us" class="nav-link">Why Us</a></li>
                     <li><a href="#products" class="nav-link">Products</a></li>
-                    <li><a href="#pipeline" class="nav-link">Production</a></li>
+                    <li><a href="#gallery" class="nav-link">Plant Infrastructure</a></li>
                     <li><a href="#certs" class="nav-link">Certificates</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -677,6 +735,65 @@
             <div class="counter-item"><h3>ISO 9001</h3><p>QMS Certified</p></div>
         </div>
     </div>
+
+    <!-- NEW SECTION: INSTANT TONNAGE & ESTIMATE CALCULATOR -->
+    <section class="section-padding calc-section" id="calculator">
+        <div class="container">
+            <div class="calc-container">
+                <div class="calc-box">
+                    <h3>B2B Tonnage & Estimate Calculator</h3>
+                    <p style="color: #64748b; font-size: 13.5px; margin-bottom: 24px;">Configure structural parameters for an instant preliminary weight & zinc coating estimate.</p>
+
+                    <div class="calc-form-group">
+                        <label>Structure Category</label>
+                        <select id="calcStructure" onchange="calculateEstimate()">
+                            <option value="lattice">Lattice Transmission Line Tower</option>
+                            <option value="substation">Substation Structure / Gantry</option>
+                            <option value="earthing">GI Earthing Flat / Patti</option>
+                            <option value="solar">Solar Mounting Structure</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-form-group">
+                        <label>Voltage / Grade Rating</label>
+                        <select id="calcVoltage" onchange="calculateEstimate()">
+                            <option value="220">220 kV Class (Heavy)</option>
+                            <option value="132">132 kV Class</option>
+                            <option value="33">33 kV / 11 kV Distribution</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-form-group">
+                        <label>Estimated Quantity / Length (Units or Meters)</label>
+                        <input type="number" id="calcQty" value="10" min="1" oninput="calculateEstimate()">
+                    </div>
+                </div>
+
+                <div class="calc-results-card">
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 10px;">Estimate Summary</h4>
+                        
+                        <div class="calc-metric-row">
+                            <span style="color: #cbd5e1; font-size: 13px;">Estimated Total Weight:</span>
+                            <span class="calc-metric-value" id="resWeight">15.0 MT</span>
+                        </div>
+
+                        <div class="calc-metric-row">
+                            <span style="color: #cbd5e1; font-size: 13px;">Zinc Galvanizing Surface Coating:</span>
+                            <span class="calc-metric-value" id="resCoating">86 Micron (IS 2629)</span>
+                        </div>
+
+                        <div class="calc-metric-row">
+                            <span style="color: #cbd5e1; font-size: 13px;">Production Lifecycle Estimate:</span>
+                            <span class="calc-metric-value" id="resDays">4 to 6 Working Days</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn-quote" style="text-align: center; width: 100%; display: inline-block;">Apply Estimate to Official Quote ➔</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Live PRODUCTION PIPELINE -->
     <section class="pipeline-section" id="pipeline">
@@ -863,6 +980,56 @@
                             <p>IS 2062 grade high-tensile mild steel transmission line towers finished with 80+ micron hot-dip zinc galvanizing.</p>
                         </div>
                         <div class="product-actions"><a href="#contact" class="btn-prod-quote">Request Quote &rarr;</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: PLANT INFRASTRUCTURE & MACHINERY SHOWCASE -->
+    <section class="section-padding gallery-section" id="gallery">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 32px; font-weight: 900; color: #c2410c; margin-bottom: 8px; text-transform: uppercase;">Plant Infrastructure & Machinery</h2>
+            <p style="text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px;">Heavy machinery and quality assurance facilities operating across Unit-1 and Unit-2.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="/transmission_tower.jpg" alt="10M Galvanizing Bath" onerror="this.src='/tower1.jpeg'">
+                    </div>
+                    <div class="gallery-info">
+                        <h4>10M Hot-Dip Galvanizing Bath</h4>
+                        <p>Unit-2 Gaddapotharam facility capable of processing heavy structural steel angles up to 80+ micron thickness.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="/m type towers.jpg" alt="CNC Angle Punching Line" onerror="this.src='/tower2.jpeg'">
+                    </div>
+                    <div class="gallery-info">
+                        <h4>CNC Hydraulic Angle Line</h4>
+                        <p>Automated shearing, punching, and stamping setups at Unit-1 Kazipally for rapid fabrication throughput.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="/m-type-electrical-tower.jpg" alt="Heavy Logistics Fleet" onerror="this.src='/tower3.jpeg'">
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Logistics & Dispatch Fleet</h4>
+                        <p>Heavy Bharat Benz trailers and Hydra cranes for direct transport to EPC project erection sites.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="/tower2_2.jpeg" alt="Elcometer QA Testing" onerror="this.src='/tower4.jpeg'">
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Precision QA Testing Lab</h4>
+                        <p>Elcometer zinc coating thickness gauges and mechanical testing ensuring strict IS compliance.</p>
                     </div>
                 </div>
             </div>
@@ -1176,6 +1343,38 @@
 
     <!-- INTERACTIVE ANIMATION SCRIPTS -->
     <script>
+        // --- ESTIMATOR CALCULATOR LOGIC ---
+        function calculateEstimate() {
+            const category = document.getElementById("calcStructure").value;
+            const voltage = document.getElementById("calcVoltage").value;
+            const qty = parseFloat(document.getElementById("calcQty").value) || 1;
+
+            let weightFactor = 1.5;
+            let coating = "86 Micron (IS 2629)";
+            let days = "4 to 6 Working Days";
+
+            if (category === "lattice") {
+                weightFactor = voltage === "220" ? 2.5 : (voltage === "132" ? 1.8 : 1.2);
+            } else if (category === "substation") {
+                weightFactor = voltage === "220" ? 3.0 : 1.6;
+                coating = "90 Micron Heavy Zinc";
+            } else if (category === "earthing") {
+                weightFactor = 0.05;
+                coating = "80 Micron Standard";
+                days = "2 to 3 Working Days";
+            } else if (category === "solar") {
+                weightFactor = 0.4;
+                coating = "85 Micron Hot Dip";
+                days = "3 to 5 Working Days";
+            }
+
+            const totalWeight = (qty * weightFactor).toFixed(1);
+
+            document.getElementById("resWeight").innerText = `${totalWeight} MT`;
+            document.getElementById("resCoating").innerText = coating;
+            document.getElementById("resDays").innerText = days;
+        }
+
         // --- GLOBAL VISIBLE 3D GEOMETRIC MESH BACKGROUND ---
         (function initGlobal3D() {
             const canvas = document.getElementById('global-3d-bg');
@@ -1334,7 +1533,7 @@
         })();
 
         // --- CURSOR-TRACKING 3D TILT ANIMATION ON CARDS ---
-        document.querySelectorAll('.why-card, .product-card, .cert-card, .map-card, .client-card, .hero-card-magnetic').forEach(card => {
+        document.querySelectorAll('.why-card, .product-card, .cert-card, .map-card, .client-card, .gallery-card, .hero-card-magnetic').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
