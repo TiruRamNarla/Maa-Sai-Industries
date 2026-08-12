@@ -39,8 +39,6 @@
             --accent-gold-light: #f59e0b;
             --accent-teal: #0d9488;
             --accent-blue: #2563eb;
-            --accent-purple: #7c3aed;
-            --accent-rust: #c2410c;
             --whatsapp-green: #25d366;
             --bg-light: #f8fafc;
             --bg-alt: #f1f5f9;
@@ -262,10 +260,10 @@
         .why-content h4 { color: #0f172a; font-size: 18px; margin-bottom: 6px; font-weight: 800; }
         .why-content p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
 
-        /* --- SECTION 2: PRODUCTS PORTFOLIO --- */
-        .products-section { background: rgba(241, 245, 249, 0.92); border-top: 3px solid #1d4ed8; }
-        .products-title { text-align: center; font-size: 32px; font-weight: 900; color: #1e40af; margin-bottom: 8px; text-transform: uppercase; }
-        .products-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+        /* --- SECTION 2: PRODUCTS PORTFOLIO (NEW STEEL INDIGO/SLATE PALETTE) --- */
+        .products-section { background: rgba(241, 245, 249, 0.95); border-top: 3px solid #2563eb; }
+        .products-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .products-subtitle { text-align: center; color: #334155; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
 
         .products-grid { 
             display: grid; 
@@ -275,11 +273,11 @@
         }
         .product-card { 
             background: #ffffff;
-            border: 1.5px solid #bfdbfe; 
-            border-top: 6px solid #1d4ed8; 
+            border: 1.5px solid #cbd5e1; 
+            border-top: 6px solid #2563eb; 
             border-radius: 14px; 
             overflow: hidden; 
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); 
             transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -290,8 +288,8 @@
         }
         
         .product-card:hover {
-            box-shadow: 0 18px 35px rgba(29, 78, 216, 0.25);
-            border-color: #1d4ed8;
+            box-shadow: 0 18px 35px rgba(37, 99, 235, 0.2);
+            border-color: #2563eb;
         }
 
         .product-img-wrapper {
@@ -313,7 +311,7 @@
             position: absolute;
             top: 14px;
             left: 14px;
-            background: #1e40af;
+            background: #1e3a8a;
             color: #ffffff;
             padding: 6px 14px;
             border-radius: 20px;
@@ -321,7 +319,7 @@
             font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            border: 1px solid #60a5fa;
+            border: 1px solid #3b82f6;
             font-family: var(--font-heading);
             z-index: 2;
         }
@@ -333,7 +331,7 @@
             justify-content: space-between;
         }
         .product-card h3 { 
-            color: #1e3a8a; 
+            color: #0f172a; 
             font-size: 19px; 
             font-weight: 800;
             margin-bottom: 10px; 
@@ -347,12 +345,12 @@
             line-height: 1.6;
         }
         .product-actions { 
-            border-top: 1px solid #e0f2fe; 
+            border-top: 1px solid #e2e8f0; 
             padding-top: 16px; 
             margin-top: auto;
         }
         .btn-prod-quote { 
-            background: #1d4ed8; 
+            background: #0f172a; 
             color: #ffffff; 
             padding: 11px 22px; 
             border-radius: 6px; 
@@ -363,21 +361,21 @@
             letter-spacing: 0.3px;
         }
         .btn-prod-quote:hover {
-            background: #1e40af;
+            background: #2563eb;
             transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
         }
 
-        /* --- SECTION 3: CERTIFICATES CENTER --- */
-        .certs-section { background: rgba(255, 255, 255, 0.92); border-top: 3px solid #6d28d9; }
-        .certs-title { text-align: center; font-size: 32px; font-weight: 900; color: #5b21b6; margin-bottom: 8px; text-transform: uppercase; }
-        .certs-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+        /* --- SECTION 3: CERTIFICATES CENTER (NEW SLEEK EMERALD TEAL THEME) --- */
+        .certs-section { background: rgba(255, 255, 255, 0.95); border-top: 3px solid #0d9488; }
+        .certs-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .certs-subtitle { text-align: center; color: #334155; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
 
         .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; perspective: 1000px; }
         .cert-card { 
             background: #ffffff;
-            border: 1.5px solid #e9d5ff; 
-            border-top: 6px solid #6d28d9; 
+            border: 1.5px solid #ccfbf1; 
+            border-top: 6px solid #0d9488; 
             border-radius: 14px; 
             padding: 28px; 
             text-align: center; 
@@ -391,11 +389,11 @@
             cursor: pointer;
         }
         .cert-card:hover { 
-            border-color: #6d28d9; 
-            box-shadow: 0 15px 30px rgba(109, 40, 217, 0.25); 
+            border-color: #0d9488; 
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.22); 
         }
-        .cert-card i { font-size: 44px; color: #6d28d9; margin-bottom: 14px; }
-        .cert-card h4 { font-size: 18px; color: #4c1d95; margin-bottom: 8px; font-weight: 800; }
+        .cert-card i { font-size: 44px; color: #0d9488; margin-bottom: 14px; }
+        .cert-card h4 { font-size: 18px; color: #0f766e; margin-bottom: 8px; font-weight: 800; }
         .cert-card p { font-size: 14px; color: #334155; font-weight: 600; margin-bottom: 22px; line-height: 1.6; }
         
         .btn-download-cert { 
@@ -403,7 +401,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: #6d28d9; 
+            background: #0f766e; 
             color: #ffffff !important; 
             padding: 12px 24px; 
             border-radius: 8px; 
@@ -412,14 +410,14 @@
             text-transform: uppercase;
             letter-spacing: 0.3px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
             width: 100%;
             margin-top: auto;
         }
         .btn-download-cert:hover { 
-            background: #5b21b6; 
+            background: #0d9488; 
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(109, 40, 217, 0.35);
+            box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
         }
         .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px; }
 
@@ -448,26 +446,26 @@
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: #c2410c; color: #ffffff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); transition: all 0.3s ease; }
         .btn-nav-map:hover { background: #9a3412; box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3); }
 
-        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS --- */
+        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (NEW WARM AMBER GOLD THEME) --- */
         .clients-section {
             background: rgba(255, 255, 255, 0.95);
             padding: 90px 20px;
             position: relative;
-            border-top: 3px solid #b45309;
+            border-top: 3px solid #d97706;
             z-index: 3;
         }
 
-        .clients-title { text-align: center; font-size: 32px; font-weight: 900; color: #92400e; margin-bottom: 8px; text-transform: uppercase; }
-        .clients-subtitle { text-align: center; color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
+        .clients-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .clients-subtitle { text-align: center; color: #475569; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
 
         .section-badge {
-            background: #fef3c7;
-            color: #b45309;
+            background: #fffbeb;
+            color: #d97706;
             border: 1px solid #fde68a;
             padding: 6px 18px;
             border-radius: 50px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
             display: inline-block;
             margin-bottom: 16px;
@@ -481,9 +479,9 @@
         }
 
         .client-card {
-            background: #ffffff;
+            background: #fffbeb;
             border: 1.5px solid #fde68a;
-            border-left: 6px solid #b45309;
+            border-left: 6px solid #d97706;
             border-radius: 12px;
             padding: 20px;
             cursor: pointer;
@@ -493,8 +491,9 @@
         }
 
         .client-card:hover {
-            border-color: #b45309;
-            box-shadow: 0 12px 28px rgba(180, 83, 9, 0.25);
+            background: #ffffff;
+            border-color: #d97706;
+            box-shadow: 0 12px 28px rgba(217, 119, 6, 0.2);
         }
 
         .card-content {
@@ -507,7 +506,7 @@
         .badge-icon {
             width: 26px;
             height: 26px;
-            background: #b45309;
+            background: #d97706;
             color: #ffffff;
             font-size: 12px;
             font-weight: 900;
@@ -715,7 +714,7 @@
         </div>
     </section>
 
-    <!-- SECTION 1: WHY CHOOSE MAA SAI (TEAL HARMONY) -->
+    <!-- SECTION 1: WHY CHOOSE MAA SAI -->
     <section class="section-padding why-section" id="why-us">
         <div class="container">
             <h2 class="why-title">Why Choose Maa Sai Metal</h2>
@@ -768,7 +767,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2: PRODUCTS PORTFOLIO (ROYAL BLUE HARMONY) -->
+    <!-- SECTION 2: PRODUCTS PORTFOLIO -->
     <section class="section-padding products-section" id="products">
         <div class="container">
             <h2 class="products-title">Product Portfolio & Capabilities</h2>
@@ -868,7 +867,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3: CERTIFICATES CENTER (ROYAL PURPLE HARMONY) -->
+    <!-- SECTION 3: CERTIFICATES CENTER -->
     <section class="section-padding certs-section" id="certs">
         <div class="container">
             <h2 class="certs-title">Trust Verification & Certification Center</h2>
@@ -918,7 +917,7 @@
         </div>
     </section>
 
-    <!-- SECTION 4: MAP LOCATIONS (COPPER RUST HARMONY) -->
+    <!-- SECTION 4: MAP LOCATIONS -->
     <section class="section-padding maps-section" id="maps">
         <div class="container">
             <h2 class="maps-title">Plant Locations & Navigation</h2>
@@ -960,7 +959,7 @@
         </div>
     </section>
 
-    <!-- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (GOLDEN AMBER HARMONY) -->
+    <!-- SECTION 5: VALUABLE INDUSTRIAL CLIENTS -->
     <section class="clients-section" id="clients">
         <div class="container">
             <div style="text-align: center; margin-bottom: 40px;">
