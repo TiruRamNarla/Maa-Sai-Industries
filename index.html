@@ -25,11 +25,10 @@
     <!-- FONT AWESOME ICONS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- THREE.JS, GSAP & VANILLA-TILT -->
+    <!-- THREE.JS & GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -56,6 +55,19 @@
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* DYNAMIC FIXED BACKGROUND CANVAS FOR 3D PARTICLES */
+        #global-3d-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
         }
         
         h1, h2, h3, h4, h5, .btn-quote, .btn-prod-quote, .brand-text h1, .btn-nav-action { 
@@ -69,11 +81,12 @@
         a { color: inherit; text-decoration: none; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
 
-        .section-padding { padding: 85px 0; position: relative; }
+        .section-padding { padding: 90px 0; position: relative; z-index: 2; }
 
         /* --- HEADER & NAVIGATION --- */
         header { 
-            background: #ffffff; 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
             position: sticky; 
             top: 0; 
             z-index: 1000; 
@@ -131,6 +144,7 @@
             display: flex;
             align-items: center;
             overflow: hidden;
+            z-index: 2;
         }
 
         #hero-3d-canvas {
@@ -139,7 +153,7 @@
             right: 0;
             width: 55%;
             height: 100%;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
         }
 
@@ -177,14 +191,26 @@
         }
         .btn-pdf:hover { background: rgba(245,158,11,0.2); transform: translateY(-3px); }
 
+        .hero-card-magnetic {
+            background: rgba(255, 255, 255, 0.96); 
+            color: var(--primary-navy); 
+            padding: 28px; 
+            border-radius: 14px; 
+            border-top: 5px solid var(--accent-gold); 
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2); 
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease-out;
+            transform-style: preserve-3d;
+        }
+
         /* --- COUNTERS BAR --- */
-        .counter-bar { background: #ffffff; padding: 35px 0; border-bottom: 3px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .counter-bar { background: #ffffff; padding: 35px 0; border-bottom: 3px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; z-index: 2; }
         .counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
         .counter-item h3 { font-size: 38px; color: var(--accent-gold); font-weight: 800; }
         .counter-item p { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700; margin-top: 4px; letter-spacing: 0.5px; }
 
         /* --- PRODUCTION PIPELINE --- */
-        .pipeline-section { background: var(--bg-alt); padding: 70px 0; border-top: 3px solid #cbd5e1; }
+        .pipeline-section { background: rgba(241, 245, 249, 0.85); padding: 70px 0; border-top: 3px solid #cbd5e1; position: relative; z-index: 2; }
         .pipeline-title { text-align: center; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
         .pipeline-subtitle { text-align: center; color: #0284c7; font-size: 15px; font-weight: 700; margin-bottom: 45px; }
 
@@ -198,30 +224,29 @@
         .node-circle.glowing { border-color: #0284c7; color: #0284c7; background: #ffffff; box-shadow: 0 0 20px rgba(2, 132, 199, 0.6); transform: scale(1.1); }
         .node-title { font-size: 11.5px; font-weight: 800; text-transform: uppercase; font-family: var(--font-heading); color: var(--primary-navy); letter-spacing: 0.5px; }
 
-        /* --- SECTION 1: WHY CHOOSE MAA SAI (TEAL ACCENT THEME) --- */
-        .why-section { background: #ffffff; border-top: 3px solid #0d9488; }
+        /* --- SECTION 1: WHY CHOOSE MAA SAI (EMERALD TEAL) --- */
+        .why-section { background: rgba(255, 255, 255, 0.9); border-top: 3px solid #0d9488; }
         .why-title { text-align: center; font-size: 32px; font-weight: 900; color: #0d9488; margin-bottom: 8px; text-transform: uppercase; }
         .why-subtitle { text-align: center; color: #0f766e; font-size: 15px; font-weight: 600; margin-bottom: 45px; }
 
-        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; perspective: 1000px; }
         .why-card { 
-            background: var(--bg-light);
+            background: #ffffff;
             border: 1px solid #ccfbf1; 
-            border-left: 4px solid #0d9488;
+            border-left: 5px solid #0d9488;
             border-radius: 12px; 
             padding: 26px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04); 
             display: flex; 
             gap: 18px; 
             align-items: flex-start; 
-            transition: all 0.3s ease; 
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease; 
             cursor: pointer;
+            transform-style: preserve-3d;
         }
         .why-card:hover { 
-            transform: translateY(-5px);
-            background: #ffffff;
             border-color: #0d9488; 
-            box-shadow: 0 12px 25px rgba(13, 148, 136, 0.25);
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.25);
         }
         .why-icon { 
             width: 54px; 
@@ -239,8 +264,8 @@
         .why-content h4 { color: #0f172a; font-size: 17px; margin-bottom: 6px; font-weight: 800; }
         .why-content p { color: #475569; font-size: 13.5px; line-height: 1.6; }
 
-        /* --- SECTION 2: PRODUCTS PORTFOLIO (ROYAL BLUE ACCENT THEME) --- */
-        .products-section { background: var(--bg-alt); border-top: 3px solid #1d4ed8; }
+        /* --- SECTION 2: PRODUCTS PORTFOLIO (ROYAL BLUE) --- */
+        .products-section { background: rgba(241, 245, 249, 0.9); border-top: 3px solid #1d4ed8; }
         .products-title { text-align: center; font-size: 32px; font-weight: 900; color: #1d4ed8; margin-bottom: 8px; text-transform: uppercase; }
         .products-subtitle { text-align: center; color: #1e40af; font-size: 15px; font-weight: 600; margin-bottom: 45px; }
 
@@ -248,6 +273,7 @@
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 30px; 
+            perspective: 1000px;
         }
         .product-card { 
             background: #ffffff;
@@ -256,16 +282,17 @@
             border-radius: 14px; 
             overflow: hidden; 
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); 
-            transition: all 0.35s ease-in-out;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
         
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 32px rgba(29, 78, 216, 0.22);
+            box-shadow: 0 18px 35px rgba(29, 78, 216, 0.25);
             border-color: #1d4ed8;
         }
 
@@ -342,12 +369,12 @@
             box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
         }
 
-        /* --- SECTION 3: CERTIFICATES CENTER (VIOLET PURPLE THEME) --- */
-        .certs-section { background: #ffffff; border-top: 3px solid #6d28d9; }
+        /* --- SECTION 3: CERTIFICATES CENTER (ROYAL PURPLE) --- */
+        .certs-section { background: rgba(255, 255, 255, 0.9); border-top: 3px solid #6d28d9; }
         .certs-title { text-align: center; font-size: 32px; font-weight: 900; color: #6d28d9; margin-bottom: 8px; text-transform: uppercase; }
         .certs-subtitle { text-align: center; color: #5b21b6; font-size: 15px; font-weight: 600; margin-bottom: 45px; }
 
-        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; perspective: 1000px; }
         .cert-card { 
             background: #faf5ff;
             border: 1px solid #f3e8ff; 
@@ -356,17 +383,17 @@
             padding: 28px; 
             text-align: center; 
             box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-            transition: all 0.35s ease;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             min-height: 320px;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
         .cert-card:hover { 
-            transform: translateY(-6px); 
-            background: #ffffff;
             border-color: #6d28d9; 
-            box-shadow: 0 12px 25px rgba(109, 40, 217, 0.25); 
+            box-shadow: 0 15px 30px rgba(109, 40, 217, 0.25); 
         }
         .cert-card i { font-size: 44px; color: #6d28d9; margin-bottom: 14px; }
         .cert-card h4 { font-size: 18px; color: #4c1d95; margin-bottom: 8px; font-weight: 800; }
@@ -397,18 +424,24 @@
         }
         .trustseal-badge-img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px; }
 
-        /* --- SECTION 4: MAP LOCATIONS (RUST COPPER THEME) --- */
-        .maps-section { background: var(--bg-alt); border-top: 3px solid #c2410c; }
+        /* --- SECTION 4: MAP LOCATIONS (COPPER RUST) --- */
+        .maps-section { background: rgba(241, 245, 249, 0.9); border-top: 3px solid #c2410c; }
         .maps-title { text-align: center; font-size: 32px; font-weight: 900; color: #c2410c; margin-bottom: 8px; text-transform: uppercase; }
         .maps-subtitle { text-align: center; color: #9a3412; font-size: 15px; font-weight: 600; margin-bottom: 45px; }
 
-        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; perspective: 1000px; }
         .map-card { 
             background: #ffffff;
             border: 1px solid #ffedd5; 
             border-radius: 14px; 
             overflow: hidden; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .map-card:hover {
+            border-color: #c2410c;
+            box-shadow: 0 15px 30px rgba(194, 65, 12, 0.2);
         }
         .map-card iframe { width: 100%; height: 260px; border: none; }
         .map-info { padding: 22px; }
@@ -416,12 +449,13 @@
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: #c2410c; color: #ffffff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); transition: all 0.3s ease; }
         .btn-nav-map:hover { background: #9a3412; box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3); }
 
-        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (AMBER GOLD THEME) --- */
+        /* --- SECTION 5: VALUABLE INDUSTRIAL CLIENTS (GOLDEN AMBER) --- */
         .clients-section {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 90px 20px;
             position: relative;
             border-top: 3px solid #b45309;
+            z-index: 2;
         }
 
         .clients-title { text-align: center; font-size: 32px; font-weight: 900; color: #b45309; margin-bottom: 8px; text-transform: uppercase; }
@@ -444,30 +478,32 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
+            perspective: 1000px;
         }
 
         .client-card {
             background: #fffbe2;
             border: 1px solid #fde68a;
-            border-left: 4px solid #b45309;
+            border-left: 5px solid #b45309;
             border-radius: 12px;
             padding: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transform-style: preserve-3d;
         }
 
         .client-card:hover {
-            transform: translateY(-5px);
             background: #ffffff;
             border-color: #b45309;
-            box-shadow: 0 10px 25px rgba(180, 83, 9, 0.25);
+            box-shadow: 0 12px 28px rgba(180, 83, 9, 0.25);
         }
 
         .card-content {
             display: flex;
             align-items: center;
             gap: 12px;
+            transform: translateZ(20px);
         }
 
         .badge-icon {
@@ -504,8 +540,8 @@
             .clients-grid { grid-template-columns: 1fr; }
         }
 
-        /* --- CONTACT & FORM (DARK CONTRAST CONTAINER) --- */
-        .contact-section { background: var(--bg-alt); border-top: 3px solid #0f172a; }
+        /* --- CONTACT FORM --- */
+        .contact-section { background: rgba(241, 245, 249, 0.9); border-top: 3px solid #0f172a; }
         .contact-container { 
             display: grid; 
             grid-template-columns: 1fr 1.2fr; 
@@ -559,7 +595,7 @@
         .float-call { background: var(--accent-gold); color: var(--primary-navy); }
 
         /* --- FOOTER --- */
-        footer { background: #0f172a; color: #94a3b8; padding: 60px 0 30px; font-size: 13px; border-top: 3px solid var(--accent-gold); }
+        footer { background: #0f172a; color: #94a3b8; padding: 60px 0 30px; font-size: 13px; border-top: 3px solid var(--accent-gold); position: relative; z-index: 2; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 40px; text-align: left; }
         .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--accent-gold); padding-bottom: 6px; display: inline-block; font-family: var(--font-heading); letter-spacing: 0.5px; }
         .footer-col ul { list-style: none; }
@@ -574,6 +610,9 @@
     </style>
 </head>
 <body>
+
+    <!-- GLOBAL FIXED 3D PARTICLES CANVAS -->
+    <canvas id="global-3d-bg"></canvas>
 
     <!-- NAVBAR -->
     <header>
@@ -617,7 +656,7 @@
                 </div>
             </div>
 
-            <div class="hero-card-magnetic" data-tilt data-tilt-max="10" data-tilt-speed="400" style="background: rgba(255, 255, 255, 0.96); color: var(--text-dark); padding: 28px; border-radius: 14px; border-top: 5px solid var(--accent-gold); box-shadow: 0 12px 35px rgba(0,0,0,0.2); backdrop-filter: blur(10px);">
+            <div class="hero-card-magnetic">
                 <h3 style="color: var(--primary-navy); font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px;">Enterprise Credentials</h3>
                 <ul style="list-style: none; font-size: 13.5px; line-height: 2;">
                     <li><strong>IndiaMART Status:</strong> <span style="color:#166534; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> TrustSEAL Verified (2+ Yrs)</span></li>
@@ -1138,7 +1177,61 @@
 
     <!-- INTERACTIVE ANIMATION SCRIPTS -->
     <script>
-        // --- THREE.JS INTERACTIVE WIREFRAME TRANSMISSION TOWER ---
+        // --- GLOBAL FIXED 3D PARTICLES BACKGROUND ---
+        (function initGlobal3D() {
+            const canvas = document.getElementById('global-3d-bg');
+            if(!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const particleGeo = new THREE.BufferGeometry();
+            const count = 350;
+            const posArray = new Float32Array(count * 3);
+            for(let i = 0; i < count * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 20;
+            }
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.08,
+                color: 0x0d9488,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            const particlesMesh = new THREE.Points(particleGeo, particleMat);
+            scene.add(particlesMesh);
+
+            camera.position.z = 8;
+
+            let mouseX = 0, mouseY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x = mouseY * 0.2;
+                particlesMesh.rotation.y += mouseX * 0.02;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // --- THREE.JS HERO WIREFRAME TOWER ---
         (function init3DTower() {
             const container = document.getElementById('hero-3d-canvas');
             if(!container) return;
@@ -1197,18 +1290,6 @@
             scene.add(towerGroup);
             camera.position.set(0, 3, 13);
 
-            // Floating Particles
-            const particleGeo = new THREE.BufferGeometry();
-            const count = 180;
-            const posArray = new Float32Array(count * 3);
-            for(let i=0; i<count*3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 16;
-            }
-            particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particleMat = new THREE.PointsMaterial({ size: 0.06, color: 0xf5ab1d });
-            const particles = new THREE.Points(particleGeo, particleMat);
-            scene.add(particles);
-
             let mouseX = 0, mouseY = 0;
             window.addEventListener('mousemove', (e) => {
                 mouseX = (e.clientX / window.innerWidth - 0.5) * 0.4;
@@ -1223,8 +1304,6 @@
                 towerGroup.rotation.y += 0.006;
                 towerGroup.position.y = Math.sin(elapsedTime * 1.2) * 0.2;
 
-                particles.rotation.y -= 0.0015;
-
                 towerGroup.rotation.x = mouseY * 0.25;
                 towerGroup.rotation.z = mouseX * 0.25;
 
@@ -1238,6 +1317,27 @@
                 renderer.setSize(container.clientWidth, container.clientHeight);
             });
         })();
+
+        // --- CURSOR-TRACKING 3D TILT ANIMATION ON CARDS ---
+        document.querySelectorAll('.why-card, .product-card, .cert-card, .map-card, .client-card, .hero-card-magnetic').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `translateY(-6px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
 
         // --- ANIMATED NUMBER COUNTERS (GSAP) ---
         gsap.registerPlugin(ScrollTrigger);
