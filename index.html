@@ -20,7 +20,7 @@
     <!-- PREMIUM INDUSTRIAL FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <!-- FONT AWESOME ICONS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -399,55 +399,185 @@
         .map-info { padding: 20px; }
         .btn-nav-map { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-navy); color: var(--accent-gold); padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 12.5px; margin-top: 12px; font-family: var(--font-heading); }
 
-        /* --- GLASSMORPHISM INDUSTRIAL CLIENTS SECTION --- */
-        #clients {
-            background: radial-gradient(circle at 50% 50%, #0d1b38 0%, #081023 100%);
+        /* --- UPGRADED 3D INDUSTRIAL CLIENTS SECTION --- */
+        .clients-section {
+            background: radial-gradient(circle at 50% 20%, #0d1b2a 0%, #080f18 100%);
+            padding: 100px 20px;
             position: relative;
             overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        #clients::before {
+
+        .clients-section::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             background-image: 
-                linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-            background-size: 35px 35px;
+                linear-gradient(to right, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(245, 158, 11, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
             pointer-events: none;
         }
 
-        .clients-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-            gap: 20px; 
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
         }
-        .client-badge { 
-            background: rgba(13, 27, 56, 0.85); 
-            border: 1px solid rgba(245, 171, 29, 0.3); 
-            border-left: 5px solid var(--accent-gold); 
-            padding: 20px 18px; 
-            border-radius: 10px; 
-            text-align: left; 
-            font-weight: 800; 
-            font-size: 13.5px; 
-            color: #ffffff; 
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s ease-in-out;
+
+        .clients-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .clients-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 16px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .clients-header .section-title {
+            color: #ffffff;
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0 0 14px 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .clients-header .section-subtitle {
+            color: #94a3b8;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            perspective: 1000px;
+        }
+
+        .client-card {
+            background: linear-gradient(135deg, rgba(25, 42, 69, 0.75) 0%, rgba(13, 27, 42, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 22px 20px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .client-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .client-card:hover::after {
+            opacity: 1;
+        }
+
+        .card-content {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-family: var(--font-heading);
-            min-height: 80px;
+            gap: 14px;
+            transform: translateZ(25px);
+            pointer-events: none;
         }
-        .client-badge i { color: var(--accent-gold); font-size: 16px; flex-shrink: 0; transition: transform 0.3s ease; }
-        .client-badge:hover i { transform: scale(1.2) rotate(10deg); }
-        .client-badge:hover {
-            transform: translateY(-4px);
-            background: rgba(19, 34, 71, 0.95);
-            border-color: var(--accent-gold);
-            border-left-color: var(--accent-gold);
-            box-shadow: 0 12px 28px rgba(245, 171, 29, 0.3);
+
+        .badge-icon {
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle, #f59e0b 0%, #d97706 100%);
+            color: #0d1b2a;
+            font-size: 13px;
+            font-weight: 900;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .client-card:hover .badge-icon {
+            transform: scale(1.15) rotate(360deg);
+            box-shadow: 0 0 18px rgba(245, 158, 11, 0.8);
+        }
+
+        .client-name {
+            color: #f1f5f9;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.4;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .client-card:hover .client-name {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .clients-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .clients-header .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .clients-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* --- CONTACT & FORM --- */
@@ -647,7 +777,7 @@
 
             <div class="products-grid">
                 <!-- Product 1 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-bolt"></i> Heavy Lattice</span>
                         <img src="/transmission_tower.jpg" alt="1. Transmission Line Towers" class="product-img" onerror="this.src='/tower1.jpeg'">
@@ -662,7 +792,7 @@
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-industry"></i> Substation</span>
                         <img src="/m type towers.jpg" alt="2. m type transmission tower" class="product-img" onerror="this.src='/tower2.jpeg'">
@@ -677,7 +807,7 @@
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-layer-group"></i> 33 kV Grid</span>
                         <img src="/m-type-electrical-tower.jpg" alt="3. 33 kv electrical tower" class="product-img" onerror="this.src='/tower3.jpeg'">
@@ -692,7 +822,7 @@
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-shield-halved"></i> Galvanized</span>
                         <img src="/tower2_2.jpeg" alt="4. M Type Tower" class="product-img" onerror="this.src='/tower4.jpeg'">
@@ -707,7 +837,7 @@
                 </div>
 
                 <!-- Product 5 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-code-branch"></i> Modular Extension</span>
                         <img src="/tower3_2.jpeg" alt="5. M Type Towers M+3, M+6, M+9 And M+12 33 kv /11 kv" class="product-img" onerror="this.src='/tower5.jpeg'">
@@ -722,7 +852,7 @@
                 </div>
 
                 <!-- Product 6 -->
-                <div class="product-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+                <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-cubes"></i> IS 2062 Grade</span>
                         <img src="/tower4_2.jpeg" alt="6. Mild Steel Transmission Line Tower" class="product-img" onerror="this.src='/tower6.jpeg'">
@@ -831,27 +961,104 @@
         </div>
     </section>
 
-    <!-- GLASSMORPHISM INDUSTRIAL CLIENTS SECTION -->
-    <section class="section-padding" id="clients">
-        <div class="container">
-            <h2 class="section-title" style="color: #ffffff;">Valuable Industrial Clients</h2>
-            <p class="section-subtitle" style="color: #94a3b8;">Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.</p>
+    <!-- VALUABLE INDUSTRIAL CLIENTS SECTION (UPDATED 12-CLIENT 3D LAYOUT) -->
+    <section class="clients-section" id="clients">
+        <div class="ambient-glow"></div>
+        <div class="clients-container">
+            <!-- Section Header -->
+            <div class="clients-header">
+                <span class="section-badge">TRUSTED PARTNERSHIPS</span>
+                <h2 class="section-title">VALUABLE INDUSTRIAL CLIENTS</h2>
+                <p class="section-subtitle">
+                    Trusted supplier to power transmission, heavy infrastructure, and pharmaceutical sector leaders.
+                </p>
+            </div>
 
+            <!-- Clients Grid (12 Symmetrical Industrial Clients) -->
             <div class="clients-grid">
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>HETERO LABS LIMITED</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>DIVIS LABS</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>METROCHEM</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>PENNAR INDUSTRIES LTD.</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>ICOMM TELE LIMITED</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>LAKSHMI NARASIMHA CONSTRUCTIONS</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SUNSHINE INFRATECH</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>OGN POWER & INFRA PVT. LTD.</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>TERRA INFRA PROJECTS</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SWATHI POWER INFRA</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SRI VENKATESHWARA POWER LINES</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>SRI LAKSHMI ELECTRICALS</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>GVS PROJECTS PVT. LTD.</span></div>
-                <div class="client-badge" data-tilt><i class="fa-solid fa-circle-check"></i> <span>JUNNA SOLAR SYSTEMS</span></div>
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">HETERO LABS LIMITED</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">DIVIS LABS</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">PENNAR INDUSTRIES LTD.</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">ICOMM TELE LIMITED</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">LAKSHMI NARASIMHA CONSTRUCTIONS</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">SUNSHINE INFRATECH</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">OGN POWER & INFRA PVT. LTD.</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">TERRA INFRA PROJECTS</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">SWATHI POWER INFRA</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">SRI VENKATESHWARA POWER LINES</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">SRI LAKSHMI ELECTRICALS</span>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="card-content">
+                        <div class="badge-icon">✓</div>
+                        <span class="client-name">JUNNA SOLAR SYSTEMS</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1104,6 +1311,41 @@
         gsap.from(".hero h2", { opacity: 0, y: 30, duration: 1, delay: 0.2 });
         gsap.from(".hero p", { opacity: 0, y: 20, duration: 1, delay: 0.4 });
         gsap.from(".hero-action-btns", { opacity: 0, y: 20, duration: 1, delay: 0.6 });
+
+        // --- DYNAMIC 3D CURSOR TILT FOR CLIENT CARDS ---
+        document.querySelectorAll('.client-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                card.style.transform = `translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                card.style.boxShadow = `0 20px 35px rgba(0,0,0,0.5), 0 0 25px rgba(245, 158, 11, 0.3)`;
+                card.style.borderColor = 'rgba(245, 158, 11, 0.6)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
+                card.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+            });
+        });
+
+        // --- VANILLA TILT INITIALIZATION FOR MAGNETIC ELEMENTS ---
+        if (typeof VanillaTilt !== 'undefined') {
+            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                max: 12,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.2
+            });
+        }
 
         // --- FORM SUBMISSION ---
         async function handleFormSubmit(event) {
