@@ -787,7 +787,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-bolt"></i> Heavy Lattice</span>
-                        <img src="transmission_tower.jpg" alt="1. Transmission Line Towers" class="product-img" onerror="this.onerror=null; this.src='tower.jpg';">
+                        <img src="transmission_tower.jpg" 
+                             alt="1. Transmission Line Towers" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80';}; this.src='tower.jpg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -802,7 +805,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-industry"></i> Substation</span>
-                        <img src="m%20type%20towers.jpg" alt="2. M Type Transmission Tower" class="product-img" onerror="this.onerror=null; this.src='tower2.jpg';">
+                        <img src="m%20type%20towers.jpg" 
+                             alt="2. M Type Transmission Tower" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1544725121-be3bf52e2dc8?auto=format&fit=crop&w=600&q=80';}; this.src='tower2.jpg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -817,7 +823,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-layer-group"></i> 33 kV Grid</span>
-                        <img src="m-type-electrical-tower.jpg" alt="3. 33 kV Electrical Tower" class="product-img" onerror="this.onerror=null; this.src='tower3.jpg';">
+                        <img src="m-type-electrical-tower.jpg" 
+                             alt="3. 33 kV Electrical Tower" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80';}; this.src='tower3.jpeg';}; this.src='tower3.jpg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -832,7 +841,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-shield-halved"></i> Galvanized</span>
-                        <img src="tower4.jpg" alt="4. M Type Tower" class="product-img" onerror="this.onerror=null; this.src='tower.jpg';">
+                        <img src="tower4.jpeg" 
+                             alt="4. M Type Tower" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=600&q=80';}; this.src='tower4.jpg';}; this.src='tower.jpg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -847,7 +859,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-code-branch"></i> Modular Extension</span>
-                        <img src="tower5.jpg" alt="5. M Type Towers M+3, M+6, M+9 & M+12" class="product-img" onerror="this.onerror=null; this.src='m%20type%20towers.jpg';">
+                        <img src="tower5.jpg" 
+                             alt="5. M Type Towers M+3, M+6, M+9 & M+12" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1544725121-be3bf52e2dc8?auto=format&fit=crop&w=600&q=80';}; this.src='tower5.jpeg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -862,7 +877,10 @@
                 <div class="product-card">
                     <div class="product-img-wrapper">
                         <span class="product-badge-tag"><i class="fa-solid fa-cubes"></i> IS 2062 Grade</span>
-                        <img src="tower6.jpg" alt="6. Mild Steel Transmission Line Tower" class="product-img" onerror="this.onerror=null; this.src='transmission_tower.jpg';">
+                        <img src="tower6.jpg" 
+                             alt="6. Mild Steel Transmission Line Tower" 
+                             class="product-img" 
+                             onerror="this.onerror=function(){this.onerror=null; this.src='https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80';}; this.src='tower6.jpeg';">
                     </div>
                     <div class="product-content">
                         <div>
@@ -1261,7 +1279,7 @@
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             
             renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(renderer.domElement);
 
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
